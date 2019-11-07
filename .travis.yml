@@ -1,0 +1,10 @@
+dist: xenial
+addons:
+  snaps:
+  - name: hub
+    confinement: classic
+language: python
+python: 3.7
+cache: pip
+script:
+- echo 'Nothing to see here yet.'
