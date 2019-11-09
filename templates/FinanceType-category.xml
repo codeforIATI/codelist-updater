@@ -1,0 +1,15 @@
+<codelist name="FinanceType-category" xml:lang="en" complete="1" embedded="0">
+    <metadata>
+        <name>
+            <narrative>Finance Type (category)</narrative>
+        </name>
+        <description>
+            <narrative>This codelists exists to group the Finance Type codelist into categories. It is not used as a codelist in its own right.</narrative>
+        </description>
+        <url>http://www.oecd.org/dac/stats/dacandcrscodelists.htm</url>
+        <category>
+            <narrative>Replicated</narrative>
+        </category>
+    </metadata>
+    <codelist-items/>
+</codelist>

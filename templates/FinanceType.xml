@@ -1,0 +1,15 @@
+<codelist name="FinanceType" xml:lang="en" category-codelist="FinanceType-category" complete="1" embedded="0">
+    <metadata>
+        <name>
+            <narrative>Finance Type</narrative>
+        </name>
+        <description>
+            <narrative>DAC/CRS transaction classification used to distinguish financial instruments,  e.g. grants or loans.</narrative>
+        </description>
+        <url>http://www.oecd.org/dac/stats/dacandcrscodelists.htm</url>
+        <category>
+            <narrative>Replicated</narrative>
+        </category>
+    </metadata>
+    <codelist-items/>
+</codelist>

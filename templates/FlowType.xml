@@ -1,0 +1,15 @@
+<codelist name="FlowType" xml:lang="en" complete="1" embedded="0">
+    <metadata>
+        <name>
+            <narrative>Flow Type</narrative>
+        </name>
+        <description>
+            <narrative>DAC/CRS distinction between ODA (official development assistance) and other types of resource flow.</narrative>
+        </description>
+        <url>http://www.oecd.org/dac/stats/dacandcrscodelists.htm</url>
+        <category>
+            <narrative>Replicated</narrative>
+        </category>
+    </metadata>
+    <codelist-items/>
+</codelist>

@@ -1,0 +1,12 @@
+<codelist name="Sector" xml:lang="en" category-codelist="SectorCategory" complete="1" embedded="0" xmlns:budget-alignment="http://iatistandard.org/activity-standard/overview/country-budget-alignment/">
+  <metadata>
+    <name>
+      <narrative>DAC 5 Digit Sector</narrative>
+    </name>
+    <url>http://www.oecd.org/dac/stats/dacandcrscodelists.htm</url>
+    <category>
+      <narrative>Replicated</narrative>
+    </category>
+  </metadata>
+  <codelist-items/>
+</codelist>

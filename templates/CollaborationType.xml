@@ -1,0 +1,15 @@
+<codelist name="CollaborationType" xml:lang="en" complete="1" embedded="0">
+    <metadata>
+        <name>
+            <narrative>Collaboration Type</narrative>
+        </name>
+        <description>
+            <narrative>OECD DAC classification used to determine the character of resource flows (bilateral or multilateral).</narrative>
+        </description>
+        <url>http://www.oecd.org/dac/stats/dacandcrscodelists.htm</url>
+        <category>
+            <narrative>Replicated</narrative>
+        </category>
+    </metadata>
+    <codelist-items/>
+</codelist>
