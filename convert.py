@@ -240,8 +240,6 @@ with open(source_path) as f:
     reader = csv.DictReader(f)
     finance_types = []
     for finance_type in reader:
-        if finance_type['category'] == '0':
-            continue
         if finance_type['name_en'] == '':
             finance_type['name_en'] = finance_type['description_en']
         if finance_type['name_fr'] == '':
