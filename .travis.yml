@@ -19,7 +19,7 @@ script:
     git add -u
     git commit --author="CodeforIATIbot <57559326+codeforIATIbot@users.noreply.github.com>" -m 'Automated update'
     git push -f origin auto-update
-    hub pull-request -r andylolz,markbrough -a andylolz -m 'Automated update' -m "This update was sent from [this TravisCI build](https://travis-ci.com/codeforIATI/codelist-updater/builds/${TRAVIS_BUILD_ID})."
+    hub pull-request -r andylolz,markbrough -a andylolz -m 'Automated update' -m "Codelist update, sent from [this TravisCI build](https://travis-ci.com/codeforIATI/codelist-updater/builds/${TRAVIS_BUILD_ID})."
   fi
 env:
   global:
