@@ -23,3 +23,5 @@ wget "https://raw.githubusercontent.com/datasets/dac-crs-codes/master/data/flow_
 wget "https://raw.githubusercontent.com/datasets/dac-crs-codes/master/data/recipients.csv" -O source/recipients.csv
 wget "https://raw.githubusercontent.com/datasets/dac-crs-codes/master/data/sectors.csv" -O source/sectors.csv
 wget "https://raw.githubusercontent.com/datasets/dac-crs-codes/master/data/sector_categories.csv" -O source/sector_categories.csv
+
+wget "http://org-id.guide/download.xml" -O source/org_id.xml
