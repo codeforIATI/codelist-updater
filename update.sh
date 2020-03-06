@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd codelists
+cd codelist_repo
 git add -u || exit 1
 git commit --author="CodeforIATIbot <57559326+codeforIATIbot@users.noreply.github.com>" -m "${1} update" || exit 1
 git push origin ${1}-update || exit 1

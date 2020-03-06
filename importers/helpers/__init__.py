@@ -93,9 +93,9 @@ def reset_repo(repo, tmpl_name):
         repo = 'IATI-Codelists-NonEmbedded'
     repo = 'https://codeforIATIbot:${GITHUB_TOKEN}@github.com/' + \
            f'codeforIATI/{repo}.git'
-    shutil.rmtree('codelists', ignore_errors=True)
-    subprocess.run(f'git clone {repo} codelists && ' +
-                   f'cd codelists && ' +
+    shutil.rmtree('codelist_repo', ignore_errors=True)
+    subprocess.run(f'git clone {repo} codelist_repo && ' +
+                   f'cd codelist_repo && ' +
                    f'git branch {tmpl_name}-update && ' +
                    f'git checkout {tmpl_name}-update && '
                    f'git pull origin {tmpl_name}-update', shell=True)
@@ -103,7 +103,7 @@ def reset_repo(repo, tmpl_name):
 
 def source_to_xml(tmpl_name, source_url, lookup, repo=None, source_data=None):
     reset_repo(repo, tmpl_name)
-    old_xml = ET.parse(join('codelists', 'xml', '{}.xml'.format(tmpl_name)), etparser)
+    old_xml = ET.parse(join('codelist_repo', 'xml', '{}.xml'.format(tmpl_name)), etparser)
 
     tmpl_path = join('templates', '{}.xml'.format(tmpl_name))
     xml = ET.parse(tmpl_path, etparser)
@@ -157,7 +157,7 @@ def source_to_xml(tmpl_name, source_url, lookup, repo=None, source_data=None):
             old_codelist_el.attrib['withdrawal-date'] = today
             codelist_items.append(old_codelist_el)
 
-    output_path = join('codelists', 'xml', '{}.xml'.format(tmpl_name))
+    output_path = join('codelist_repo', 'xml', '{}.xml'.format(tmpl_name))
     for el in xml.iter('*'):
         if el.text is not None:
             if not el.text.strip():
