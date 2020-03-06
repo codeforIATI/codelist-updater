@@ -21,7 +21,9 @@ finance_types = []
 for finance_type in reader:
     if finance_type['name_en'] == '':
         finance_type['name_en'] = finance_type['description_en']
+        finance_type['description_en'] = ''
     if finance_type['name_fr'] == '':
         finance_type['name_fr'] = finance_type['description_fr']
+        finance_type['description_fr'] = ''
     finance_types.append(finance_type)
 source_to_xml('FinanceType', None, lookup, source_data=finance_types)
