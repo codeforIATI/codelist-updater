@@ -5,8 +5,9 @@ import requests
 from helpers import source_to_xml
 
 
-url = 'https://raw.githubusercontent.com/datasets/country-codes/' + \
-      'master/data/country-codes.csv'
+url = 'https://morph.io/andylolz/country-codes/' + \
+      'data.csv?key=wFTSIH61nwMjLBhphd4T' + \
+      '&query=select+%2A+from+%22data%22'
 country_lookup = {
     'code': 'code',
     'name_en': 'name_en',
