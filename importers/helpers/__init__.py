@@ -121,9 +121,14 @@ def source_to_xml(tmpl_name, source_url, lookup, repo=None, source_data=None):
     source_data_dict = OrderedDict([(source_data_row['code'].upper(), source_data_row) for source_data_row in source_data])
 
     old_codelist_els = old_xml.xpath('//codelist-item')
-    while old_codelist_els:
-        old_codelist_el = old_codelist_els.pop(0)
-        old_codelist_code = old_codelist_el.find('code').text.upper()
+    while True:
+        if not old_codelist_els and not source_data_dict:
+            break
+        if old_codelist_els:
+            old_codelist_el = old_codelist_els[0]
+            old_codelist_code = old_codelist_el.find('code').text.upper()
+        else:
+            old_codelist_code = None
         # peek at the first code
         if source_data_dict:
             new_code_dict = list(source_data_dict.values())[0]
@@ -135,8 +140,6 @@ def source_to_xml(tmpl_name, source_url, lookup, repo=None, source_data=None):
                 new_codelist_item.attrib['activation-date'] = today
                 codelist_items.append(new_codelist_item)
                 source_data_dict.popitem(last=False)
-                # push the last popped item onto the front of the queue
-                old_codelist_els.insert(0, old_codelist_el)
                 continue
 
         if old_codelist_code in source_data_dict:
@@ -158,6 +161,7 @@ def source_to_xml(tmpl_name, source_url, lookup, repo=None, source_data=None):
             old_codelist_el.attrib['status'] = 'withdrawn'
             old_codelist_el.attrib['withdrawal-date'] = today
             codelist_items.append(old_codelist_el)
+        old_codelist_els.pop(0)
 
     output_path = join('codelist_repo', 'xml', '{}.xml'.format(tmpl_name))
     for el in xml.iter('*'):
