@@ -1,13 +1,6 @@
 #!/bin/bash
 
-cd codelists || exit 1
-if [[ $(hub pr list -h codeforIATI:${1}-update | wc -c) -ne 0 ]]; then
-  git stash
-  git checkout ${1}-update || exit 1
-  git stash pop
-else
-  git checkout -b ${1}-update || exit 1
-fi
+cd codelists
 git add -u || exit 1
 git commit --author="CodeforIATIbot <57559326+codeforIATIbot@users.noreply.github.com>" -m "${1} update" || exit 1
 git push origin ${1}-update || exit 1

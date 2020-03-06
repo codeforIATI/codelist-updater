@@ -88,17 +88,21 @@ def update_codelist_item(codelist_item, code_dict):
     return codelist_item
 
 
-def reset_repo(repo):
+def reset_repo(repo, tmpl_name):
     if not repo:
         repo = 'IATI-Codelists-NonEmbedded'
     repo = 'https://codeforIATIbot:${GITHUB_TOKEN}@github.com/' + \
-           'codeforIATI/' + repo + '.git'
+           f'codeforIATI/{repo}.git'
     shutil.rmtree('codelists', ignore_errors=True)
-    subprocess.run('git clone ' + repo + ' codelists', shell=True)
+    subprocess.run(f'git clone {repo} codelists && ' +
+                   f'cd codelists && ' +
+                   f'git branch {tmpl_name}-update && ' +
+                   f'git checkout {tmpl_name}-update && '
+                   f'git pull origin {tmpl_name}-update', shell=True)
 
 
 def source_to_xml(tmpl_name, source_url, lookup, repo=None, source_data=None):
-    reset_repo(repo)
+    reset_repo(repo, tmpl_name)
     old_xml = ET.parse(join('codelists', 'xml', '{}.xml'.format(tmpl_name)), etparser)
 
     tmpl_path = join('templates', '{}.xml'.format(tmpl_name))
