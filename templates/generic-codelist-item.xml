@@ -2,7 +2,11 @@
     <code/>
     <name>
         <narrative/>
+        <narrative xml:lang="ar"/>
+        <narrative xml:lang="es"/>
         <narrative xml:lang="fr"/>
+        <narrative xml:lang="ru"/>
+        <narrative xml:lang="zh"/>
     </name>
     <description>
         <narrative/>
