@@ -6,28 +6,23 @@ addons:
 language: python
 python: 3.7
 cache: pip
-install:
-- pip install -r requirements.txt
-- ./get.sh
-- git clone https://codeforIATIbot:${GITHUB_TOKEN}@github.com/codeforIATI/IATI-Codelists-NonEmbedded.git codelists
 script:
-- python convert.py
-- cd codelists
-- |
-  if [[ $(hub pr list -h codeforIATI:auto-update | wc -c) -ne 0 ]]; then
-    set +e
-    exit 0
-  fi
-- git checkout -b auto-update
-- |
-  if [[ $(git diff | wc -c) -eq 0 ]]; then
-    set +e
-    exit 0
-  fi
-- git add -u
-- git commit --author="CodeforIATIbot <57559326+codeforIATIbot@users.noreply.github.com>" -m 'Automated update'
-- git push origin auto-update
-- hub pull-request -r andylolz,markbrough -a andylolz -m 'Automated update' -m "Codelist update, sent from [this TravisCI build](https://travis-ci.com/codeforIATI/codelist-updater/builds/${TRAVIS_BUILD_ID})."
+- python importers/aid_type.py
+- python importers/aid_type_category.py
+- python importers/collaboration_type.py
+- python importers/country.py
+- python importers/crs_channel_code.py
+- python importers/currency.py
+- python importers/file_format.py
+- python importers/finance_type.py
+- python importers/financy_type_category.py
+- python importers/flow_type.py
+- python importers/helpers
+- python importers/language.py
+- python importers/organisation_registration_agency.py
+- python importers/region.py
+- python importers/sector.py
+- python importers/sector_category.py
 env:
   global:
     secure: PrykzMwG5sQWZj1qg1TpyzfVjagoH01gF8CBexbCvtFyF0iSY1WmBHl2piTUWXNBIsiODqqux0Y9LoT24BvV6pW3hEepy97UpOrGrF6QNvpmpDgcfkgLcxjZnNCFbHrH7Wcjx0YwdskXHl0ECUshS8QJf4cwwAg+4F25OyZ2djUVA/svxN+4eBkD4Yan9KlHbnE+REErse9+c96tsGj6MnTJ/e8IjdjdvPiNQ5j9A77S/5OWm+pO3yiKu6vAJlxwTVTS5nmrro9xJBP7Bp5F3B8B0AkHBXijGDWLI3m3sMNYGIToA+IMUgkGBQHFinNBjiyg7i6eejnQFX7CGfH6EiNg642OYTnlLMoalipm+G1hoG9DrCoab70L2jvkyE/SqEFK8SZcfF9VmuIFzVTzb2kk7hnzZ41H9di1IDb3F2pFbt/2p5H0B8mus3a+PniEszts3vA8QT91HFvqPdLITEnUrG64hPpI/j5rhYqIKKxjy6R2WICcBrvWZcAK050PIjJjSDehGih13z/tziUQULYW4057Zoh2+cW3OEsbLQmeZJ2kYOdUb3nQ311UegfetiuJF3WocI3usFBkLizEQYicx7L7pRk8UicGpkkDXLnO3rk8tAaTlJerU26Lg4GdJ5flxyCAefMf82fcKBQJ4P/Dskzyx9pchC8HxqYV2Sg=

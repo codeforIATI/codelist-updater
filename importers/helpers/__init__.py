@@ -1,9 +1,11 @@
+import shutil
 from collections import OrderedDict
 from datetime import date
-from os import system
 from os.path import join
 import re
+import subprocess
 
+import requests
 from lxml import etree as ET
 import csv
 
@@ -86,7 +88,17 @@ def update_codelist_item(codelist_item, code_dict):
     return codelist_item
 
 
-def source_to_xml(tmpl_name, source_name, lookup, source_data=None):
+def reset_repo(repo):
+    if not repo:
+        repo = 'IATI-Codelists-NonEmbedded'
+    repo = 'https://codeforIATIbot:${GITHUB_TOKEN}@github.com/' + \
+           'codeforIATI/' + repo + '.git'
+    shutil.rmtree('codelists', ignore_errors=True)
+    subprocess.run('git clone ' + repo + ' codelists', shell=True)
+
+
+def source_to_xml(tmpl_name, source_url, lookup, repo=None, source_data=None):
+    reset_repo(repo)
     old_xml = ET.parse(join('codelists', 'xml', '{}.xml'.format(tmpl_name)), etparser)
 
     tmpl_path = join('templates', '{}.xml'.format(tmpl_name))
@@ -94,12 +106,11 @@ def source_to_xml(tmpl_name, source_name, lookup, source_data=None):
     codelist_items = xml.find('codelist-items')
 
     if not source_data:
-        source_path = join('source', '{}.csv'.format(source_name))
-        with open(source_path) as f:
-            reader = csv.DictReader(f)
-            source_data = [{
-                k: x.get(v) for k, v in lookup.items()
-            } for x in reader if x[lookup['code']]]
+        r = requests.get(source_url)
+        reader = csv.DictReader(r.iter_lines(decode_unicode=True))
+        source_data = [{
+            k: x.get(v) for k, v in lookup.items()
+        } for x in reader if x[lookup['code']]]
 
     source_data_dict = OrderedDict([(source_data_row['code'].upper(), source_data_row) for source_data_row in source_data])
 
@@ -150,121 +161,8 @@ def source_to_xml(tmpl_name, source_name, lookup, source_data=None):
                 el.text = None
     indent(xml.getroot(), 0, 4)
     xml.write(output_path, encoding='utf-8', pretty_print=True)
+    push_changes(tmpl_name)
 
-fileformat_lookup = {
-    'code': 'Media Type',
-    'category': 'Type',
-}
-print('Converting FileFormat ...')
-source_to_xml('FileFormat', 'media-types', fileformat_lookup)
 
-currency_lookup = {
-    'code': 'AlphabeticCode',
-    'name_en': 'Currency',
-    'withdrawal_date': 'WithdrawalDate',
-}
-# TODO: source data includes withdrawn codes!
-# This needs to be factored in when parsing.
-print('Converting Currency ...')
-source_to_xml('Currency', 'currencies', currency_lookup)
-
-country_lookup = {
-    'code': 'code',
-    'name_en': 'name_en',
-}
-source_path = join('source', 'countries.csv')
-with open(source_path) as f:
-    reader = csv.DictReader(f)
-    countries = [{
-        'code': x['ISO3166-1-Alpha-2'],
-        'name_en': x['CLDR display name'],
-    } for x in reader if x['ISO3166-1-Alpha-2']]
-print('Converting Country ...')
-source_to_xml('Country', 'countries', country_lookup, source_data=countries)
-
-language_lookup = {
-    'code': 'alpha2',
-    'name_en': 'English',
-}
-print('Converting Language ...')
-source_to_xml('Language', 'languages', language_lookup)
-
-lookup_no_category = {
-    'code': 'code',
-    'name_en': 'name_en',
-    'name_fr': 'name_fr',
-    'description_en': 'description_en',
-    'description_fr': 'description_fr',
-}
-print('Converting AidType-category ...')
-source_to_xml('AidType-category', 'aid_type_categories', lookup_no_category)
-print('Converting FlowType ...')
-source_to_xml('FlowType', 'flow_types', lookup_no_category)
-print('Converting SectorCategory ...')
-source_to_xml('SectorCategory', 'sector_categories', lookup_no_category)
-
-lookup_no_desc = {
-    'code': 'code',
-    'name_en': 'name_en',
-    'name_fr': 'name_fr',
-}
-print('Converting CollaborationType ...')
-source_to_xml('CollaborationType', 'collaboration_types', lookup_no_desc)
-print('Converting CRSChannelCode ...')
-source_to_xml('CRSChannelCode', 'channel_codes', lookup_no_desc)
-
-source_path = join('source', 'finance_type_categories.csv')
-with open(source_path) as f:
-    reader = csv.DictReader(f)
-    finance_type_categories = []
-    for finance_type_category in reader:
-        if finance_type_category['code'] == '0':
-            continue
-        finance_type_categories.append(finance_type_category)
-print('Converting FinanceType-category ...')
-source_to_xml('FinanceType-category', None, lookup_no_desc, source_data=finance_type_categories)
-
-lookup = {
-    'code': 'code',
-    'category': 'category',
-    'name_en': 'name_en',
-    'name_fr': 'name_fr',
-    'description_en': 'description_en',
-    'description_fr': 'description_fr',
-}
-print('Converting AidType ...')
-source_to_xml('AidType', 'aid_types', lookup)
-
-source_path = join('source', 'finance_types.csv')
-with open(source_path) as f:
-    reader = csv.DictReader(f)
-    finance_types = []
-    for finance_type in reader:
-        if finance_type['name_en'] == '':
-            finance_type['name_en'] = finance_type['description_en']
-        if finance_type['name_fr'] == '':
-            finance_type['name_fr'] = finance_type['description_fr']
-        finance_types.append(finance_type)
-print('Converting FinanceType ...')
-source_to_xml('FinanceType', None, lookup, source_data=finance_types)
-
-source_path = join('source', 'sectors.csv')
-with open(source_path) as f:
-    reader = csv.DictReader(f)
-    sectors = []
-    for sector in reader:
-        if sector['voluntary_code'] != '':
-            sector['code'] = sector['voluntary_code']
-        for txt in ['name_en', 'name_fr', 'description_en', 'description_fr']:
-            sector[txt] = re.sub(r'  +', ' ', sector[txt])
-        sectors.append(sector)
-sectors = sorted(sectors, key=lambda x: x['code'])
-print('Converting Sector ...')
-source_to_xml('Sector', None, lookup, source_data=sectors)
-
-source_path = join('source', 'recipients.csv')
-with open(source_path) as f:
-    reader = csv.DictReader(f)
-    regions = [x for x in reader if x['income_group'] == 'Part I unallocated by income']
-print('Converting Region ...')
-source_to_xml('Region', None, lookup, source_data=regions)
+def push_changes(tmpl_name):
+    subprocess.run('./update.sh ' + tmpl_name, shell=True)
