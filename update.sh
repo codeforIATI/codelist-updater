@@ -2,7 +2,9 @@
 
 cd codelists
 if [[ $(hub pr list -h codeforIATI:${1}-update | wc -c) -ne 0 ]]; then
+  git stash
   git checkout ${1}-update
+  git stash pop
 else
   git checkout -b ${1}-update
 fi
