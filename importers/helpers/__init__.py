@@ -70,20 +70,22 @@ def update_codelist_item(codelist_item, code_dict):
 
     if 'name_en' in code_dict:
         for name_el in codelist_item.findall('name/narrative'):
-            if name_el.get('{http://www.w3.org/XML/1998/namespace}lang') == 'fr':
-                name_el.text = str_update(name_el.text, code_dict.get('name_fr'))
-            else:
+            lang = name_el.get('{http://www.w3.org/XML/1998/namespace}lang', 'en')
+            if lang == 'en':
                 name_el.text = str_update(name_el.text, code_dict.get('name_en'))
+            else:
+                name_el.text = str_update(name_el.text, code_dict.get('name_' + lang))
 
     if 'description_en' in code_dict:
         for description_el in codelist_item.findall('description/narrative'):
-            if description_el.get('{http://www.w3.org/XML/1998/namespace}lang') == 'fr':
-                if code_dict['description_fr']:
-                    description_el.text = str_update(description_el.text, code_dict['description_fr'])
+            lang = description_el.get('{http://www.w3.org/XML/1998/namespace}lang', 'en')
+            if lang == 'en':
+                description_el.text = str_update(description_el.text, code_dict['description_en'])
+            else:
+                if code_dict.get('description_' + lang):
+                    description_el.text = str_update(description_el.text, code_dict['description_' + lang])
                 else:
                     codelist_item.find('description').remove(description_el)
-            else:
-                description_el.text = str_update(description_el.text, code_dict['description_en'])
 
     return codelist_item
 
