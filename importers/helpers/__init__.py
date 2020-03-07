@@ -111,7 +111,11 @@ def source_to_xml(tmpl_name, source_url, lookup, repo=None, source_data=None):
     xml = ET.parse(tmpl_path, etparser)
     codelist_items = xml.find('codelist-items')
 
-    if not source_data:
+    if source_data:
+        source_data = [{
+             k: x[k] for k in lookup.keys()
+         } for x in source_data]
+    else:
         r = requests.get(source_url)
         reader = csv.DictReader(r.iter_lines(decode_unicode=True))
         source_data = [{
