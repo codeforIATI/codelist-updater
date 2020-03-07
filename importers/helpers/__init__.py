@@ -94,10 +94,9 @@ def update_codelist_item(codelist_item, code_dict):
                 else:
                     continue
             narrative.text = v
-        elif k == 'withdrawal-date':
+        elif k in ['status', 'withdrawal-date']:
             if v:
                 codelist_item.set(k, v)
-                codelist_item.set('status', 'withdrawn')
         else:
             codelist_item.find(k).text = v
     return codelist_item
