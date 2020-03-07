@@ -11,8 +11,6 @@ lookup = {
     'code': 'code',
     'name_en': 'name_en',
     'name_fr': 'name_fr',
-    'description_en': 'description_en',
-    'description_fr': 'description_fr',
 }
 r = requests.get(url)
 reader = csv.DictReader(r.iter_lines(decode_unicode=True))
