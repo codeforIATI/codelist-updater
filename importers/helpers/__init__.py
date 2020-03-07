@@ -84,7 +84,7 @@ def update_codelist_item(codelist_item, code_dict):
             else:
                 if code_dict.get('description_' + lang):
                     description_el.text = str_update(description_el.text, code_dict['description_' + lang])
-                else:
+                elif description_el.text != '':
                     codelist_item.find('description').remove(description_el)
 
     return codelist_item
