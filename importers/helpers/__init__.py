@@ -48,6 +48,7 @@ def str_update(current, proposed):
 
 def create_codelist_item(keys):
     xml = ET.Element('codelist-item')
+    xml.set('status', 'active')
     if 'code' in keys:
         xml.append(ET.Element('code'))
     if 'name_en' in keys:
@@ -147,7 +148,6 @@ def source_to_xml(tmpl_name, source_url, lookup, repo=None, source_data=None):
                 # add a new code
                 new_codelist_item = create_codelist_item(new_code_dict.keys())
                 new_codelist_item = update_codelist_item(new_codelist_item, new_code_dict)
-                new_codelist_item.attrib['status'] = 'active'
                 # new_codelist_item.attrib['activation-date'] = today
                 codelist_items.append(new_codelist_item)
                 source_data_dict.popitem(last=False)
