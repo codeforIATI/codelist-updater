@@ -1,6 +1,5 @@
 import shutil
 from collections import OrderedDict
-from datetime import date
 from os.path import join
 import re
 import subprocess
@@ -18,7 +17,6 @@ Note not all external codelists are converted automatically yet.
 
 """
 etparser = ET.XMLParser(encoding='utf-8', remove_blank_text=True)
-today = str(date.today())
 
 
 # Adapted from code at http://effbot.org/zone/element-lib.htm
@@ -135,11 +133,11 @@ def source_to_xml(tmpl_name, source_url, lookup, repo=None, source_data=None):
         if source_data_dict:
             new_code_dict = list(source_data_dict.values())[0]
             if new_code_dict['code'].upper() != old_codelist_code and not old_xml.xpath('//codelist-item/code[text()="{}"]/..'.format(new_code_dict['code'])):
-                # add a new code, with activation date of today
+                # add a new code
                 new_codelist_item = create_codelist_item(new_code_dict.keys())
                 new_codelist_item = update_codelist_item(new_codelist_item, new_code_dict)
                 new_codelist_item.attrib['status'] = 'active'
-                new_codelist_item.attrib['activation-date'] = today
+                # new_codelist_item.attrib['activation-date'] = today
                 codelist_items.append(new_codelist_item)
                 source_data_dict.popitem(last=False)
                 continue
@@ -158,10 +156,8 @@ def source_to_xml(tmpl_name, source_url, lookup, repo=None, source_data=None):
             # be left as is
             pass
         else:
-            # it's a newly withdrawn code, so mark the withdrawal date
-            # as today, and copy it
             old_codelist_el.attrib['status'] = 'withdrawn'
-            old_codelist_el.attrib['withdrawal-date'] = today
+            # old_codelist_el.attrib['withdrawal-date'] = today
             codelist_items.append(old_codelist_el)
         old_codelist_els.pop(0)
 
