@@ -126,7 +126,7 @@ def source_to_xml(tmpl_name, source_url, lookup, repo=None, source_data=None):
 
     if source_data:
         source_data = [{
-             k: x[k] for k in lookup.keys()
+             outp: x[inp] for outp, inp in lookup.items()
          } for x in source_data]
     else:
         r = requests.get(source_url)
