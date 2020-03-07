@@ -76,7 +76,7 @@ def update_codelist_item(codelist_item, code_dict):
                     f'{el}/narrative[@xml:lang="{lang}"]')
                 if narrative:
                     narrative = narrative[0]
-                    if v == '':
+                    if not v:
                         if narrative.text:
                             # remove newly empty nodes
                             narrative.getparent().remove(narrative)
@@ -84,7 +84,7 @@ def update_codelist_item(codelist_item, code_dict):
                         else:
                             # leave existing empty nodes
                             continue
-                elif v != '':
+                elif v:
                     parent = codelist_item.find(el)
                     narrative = ET.Element('narrative')
                     narrative.set(
