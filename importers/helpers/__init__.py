@@ -49,44 +49,46 @@ def str_update(current, proposed):
 
 
 def create_codelist_item(keys):
-    tmpl_path = join('templates', 'generic-codelist-item.xml')
-    xml = ET.parse(tmpl_path, etparser).getroot()
-    if 'name_en' not in keys:
-        xml.remove(xml.find('name'))
-    if 'description_en' not in keys:
-        xml.remove(xml.find('description'))
-    if 'category' not in keys:
-        xml.remove(xml.find('category'))
+    xml = ET.Element('codelist-item')
+    if 'code' in keys:
+        xml.append(ET.Element('code'))
+    if 'name_en' in keys:
+        name = ET.Element('name')
+        name.append(ET.Element('narrative'))
+        xml.append(name)
+    if 'description_en' in keys:
+        description = ET.Element('description')
+        description.append(ET.Element('narrative'))
+        xml.append(description)
+    if 'category' in keys:
+        xml.append(ET.Element('category'))
     return xml
 
 
 def update_codelist_item(codelist_item, code_dict):
-    # update code
-    if not codelist_item.find('code').text:
-        codelist_item.find('code').text = code_dict['code']
-    if 'category' in code_dict:
-        # update category
-        codelist_item.find('category').text = code_dict['category']
-
-    if 'name_en' in code_dict:
-        for name_el in codelist_item.findall('name/narrative'):
-            lang = name_el.get('{http://www.w3.org/XML/1998/namespace}lang', 'en')
+    for k, v in code_dict.items():
+        if '_' in k:
+            el, lang = k.split('_')
             if lang == 'en':
-                name_el.text = str_update(name_el.text, code_dict.get('name_en'))
+                narrative = codelist_item.xpath(
+                    f'{el}/narrative[not(@xml:lang)]')[0]
             else:
-                name_el.text = str_update(name_el.text, code_dict.get('name_' + lang))
-
-    if 'description_en' in code_dict:
-        for description_el in codelist_item.findall('description/narrative'):
-            lang = description_el.get('{http://www.w3.org/XML/1998/namespace}lang', 'en')
-            if lang == 'en':
-                description_el.text = str_update(description_el.text, code_dict['description_en'])
-            else:
-                if code_dict.get('description_' + lang):
-                    description_el.text = str_update(description_el.text, code_dict['description_' + lang])
-                elif description_el.text != '':
-                    codelist_item.find('description').remove(description_el)
-
+                narrative = codelist_item.xpath(
+                    f'{el}/narrative[@xml:lang="{lang}"]')
+                if narrative:
+                    narrative = narrative[0]
+                elif v != '':
+                    parent = codelist_item.find(el)
+                    narrative = ET.Element('narrative')
+                    narrative.set(
+                        '{http://www.w3.org/XML/1998/namespace}lang',
+                        lang)
+                    parent.append(narrative)
+                else:
+                    continue
+            narrative.text = v
+        else:
+            codelist_item.find(k).text = v
     return codelist_item
 
 
