@@ -75,6 +75,14 @@ def update_codelist_item(codelist_item, code_dict):
                     f'{el}/narrative[@xml:lang="{lang}"]')
                 if narrative:
                     narrative = narrative[0]
+                    if v == '':
+                        if narrative.text:
+                            # remove newly empty nodes
+                            narrative.getparent().remove(narrative)
+                            continue
+                        else:
+                            # leave existing empty nodes
+                            continue
                 elif v != '':
                     parent = codelist_item.find(el)
                     narrative = ET.Element('narrative')
@@ -133,7 +141,6 @@ def source_to_xml(tmpl_name, source_url, lookup, repo=None, source_data=None):
             old_codelist_code = old_codelist_el.find('code').text.upper()
         else:
             old_codelist_code = None
-        # peek at the first code
         if source_data_dict:
             new_code_dict = list(source_data_dict.values())[0]
             if new_code_dict['code'].upper() != old_codelist_code and not old_xml.xpath('//codelist-item/code[text()="{}"]/..'.format(new_code_dict['code'])):
