@@ -23,6 +23,7 @@ countries = [{
 countries.append({
     'code': 'XK',
     'name_en': 'Kosovo',
+    'name_fr': '',
 })
 countries = sorted(countries, key=lambda x: x['name_en'])
 source_to_xml('Country', 'countries', country_lookup, source_data=countries)
