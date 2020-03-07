@@ -20,6 +20,8 @@ r = requests.get(url)
 reader = csv.DictReader(r.iter_lines(decode_unicode=True))
 currencies = []
 for currency in reader:
+    if currency['AlphabeticCode'] == '':
+        continue
     currency['status'] = ''
     if currency['WithdrawalDate'] != '':
         currency['status'] = 'withdrawn'
