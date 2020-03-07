@@ -13,12 +13,5 @@
             <narrative>Replicated</narrative>
         </category>
     </metadata>
-    <codelist-items>
-        <codelist-item>
-            <code>XK</code>
-            <name>
-                <narrative>Kosovo</narrative>
-            </name>
-        </codelist-item>
-    </codelist-items>
+    <codelist-items/>
 </codelist>

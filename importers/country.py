@@ -20,5 +20,9 @@ countries = [{
     'name_en': x['name_en'],
     'name_fr': x['name_fr'],
 } for x in reader]
+countries.append({
+    'code': 'XK',
+    'name_en': 'Kosovo',
+})
 countries = sorted(countries, key=lambda x: x['name_en'])
 source_to_xml('Country', 'countries', country_lookup, source_data=countries)
