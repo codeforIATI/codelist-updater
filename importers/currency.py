@@ -13,8 +13,8 @@ url = 'https://raw.githubusercontent.com/datasets/currency-codes/' + \
 lookup = {
     'code': 'AlphabeticCode',
     'name_en': 'Currency',
-    'withdrawal-date': 'WithdrawalDate',
-    'status': 'status',
+    '@withdrawal-date': 'WithdrawalDate',
+    '@status': 'status',
 }
 r = requests.get(url)
 reader = csv.DictReader(r.iter_lines(decode_unicode=True))

@@ -94,7 +94,8 @@ def update_codelist_item(codelist_item, code_dict):
                 else:
                     continue
             narrative.text = v
-        elif k in ['status', 'withdrawal-date']:
+        elif k.startswith('@'):
+            k = k[1:]
             if v:
                 codelist_item.set(k, v)
         else:
