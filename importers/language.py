@@ -6,5 +6,6 @@ url = 'https://raw.githubusercontent.com/datasets/language-codes/' + \
 language_lookup = {
     'code': 'alpha2',
     'name_en': 'English',
+    'name_fr': 'French',
 }
 source_to_xml('Language', url, language_lookup)
