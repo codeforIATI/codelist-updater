@@ -8,4 +8,5 @@ language_lookup = {
     'name_en': 'English',
     'name_fr': 'French',
 }
-source_to_xml('Language', url, language_lookup)
+source_to_xml('Language', url, language_lookup,
+              order_by='code/text()')

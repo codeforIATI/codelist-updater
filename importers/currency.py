@@ -30,4 +30,6 @@ for currency in reader:
     if not yyyy_mm_dd.match(currency['WithdrawalDate']):
         currency['WithdrawalDate'] = ''
     currencies.append(currency)
-source_to_xml('Currency', None, lookup, source_data=currencies)
+source_to_xml('Currency', None, lookup,
+              source_data=currencies,
+              order_by='code/text()')
