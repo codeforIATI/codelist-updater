@@ -118,7 +118,8 @@ def reset_repo(tmpl_name, repo=None):
                    f'git checkout -b {tmpl_name}-update', shell=True)
 
 
-def source_to_xml(tmpl_name, source_url, lookup, repo=None, source_data=None):
+def source_to_xml(tmpl_name, source_url, lookup,
+                  repo=None, source_data=None, order_by=None):
     reset_repo(tmpl_name, repo)
     old_xml = ET.parse(join('codelist_repo', 'xml', '{}.xml'.format(tmpl_name)), etparser)
 
@@ -177,6 +178,11 @@ def source_to_xml(tmpl_name, source_url, lookup, repo=None, source_data=None):
             # old_codelist_el.attrib['withdrawal-date'] = today
             codelist_items.append(old_codelist_el)
         old_codelist_els.pop(0)
+
+    if order_by:
+        codelist_items[:] = sorted(
+            codelist_items,
+            key=lambda x: x.xpath(order_by))
 
     output_path = join('codelist_repo', 'xml', '{}.xml'.format(tmpl_name))
     for el in xml.iter('*'):
