@@ -64,6 +64,24 @@ def create_codelist_item(keys):
     return xml
 
 
+def create_codelist_item_extra(xml, codelist_dict):
+    for key, value in codelist_dict.items():
+        if key.startswith('code'): continue
+        elif key.startswith('name'): continue
+        elif key.startswith('description'): continue
+        elif key.startswith('category'): continue
+        else:
+            if "_" in key:
+                name, lang = key.split("_")
+            else: name = key
+            if xml.xpath(name): continue
+            el = ET.Element(name)
+            if "code" not in name:
+                el.append(ET.Element('narrative'))
+            xml.append(el)
+    return xml
+
+
 def update_codelist_item(codelist_item, code_dict):
     for k, v in code_dict.items():
         if '_' in k:
@@ -154,6 +172,7 @@ def source_to_xml(tmpl_name, source_url, lookup,
             if new_code_dict['code'].upper() != old_codelist_code and not old_xml.xpath('//codelist-item/code[text()="{}"]/..'.format(new_code_dict['code'])):
                 # add a new code
                 new_codelist_item = create_codelist_item(new_code_dict.keys())
+                new_codelist_item = create_codelist_item_extra(new_codelist_item, new_code_dict)
                 new_codelist_item = update_codelist_item(new_codelist_item, new_code_dict)
                 # new_codelist_item.attrib['activation-date'] = today
                 codelist_items.append(new_codelist_item)
@@ -163,6 +182,7 @@ def source_to_xml(tmpl_name, source_url, lookup,
         if old_codelist_code in source_data_dict:
             # it's in the current codes, so update it
             new_code_dict = source_data_dict[old_codelist_code]
+            old_codelist_el = create_codelist_item_extra(old_codelist_el, new_code_dict)
             updated_codelist_item = update_codelist_item(old_codelist_el, new_code_dict)
             codelist_items.append(updated_codelist_item)
             del source_data_dict[old_codelist_code]
