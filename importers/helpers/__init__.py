@@ -146,15 +146,15 @@ def source_to_xml(tmpl_name, source_url, lookup,
     codelist_items = xml.find('codelist-items')
 
     if source_data:
-        source_data = [{
-             outp: x[inp] for outp, inp in lookup.items()
-         } for x in source_data]
+        source_data = [OrderedDict([
+             (outp, x[inp]) for outp, inp in lookup.items()
+         ]) for x in source_data]
     else:
         r = requests.get(source_url)
         reader = csv.DictReader(r.iter_lines(decode_unicode=True))
-        source_data = [{
-            k: x.get(v) for k, v in lookup.items()
-        } for x in reader if x[lookup['code']]]
+        source_data = [OrderedDict([
+            (k, x.get(v)) for k, v in lookup.items()
+        ]) for x in reader if x[lookup['code']]]
 
     source_data_dict = OrderedDict([(source_data_row['code'].upper(), source_data_row) for source_data_row in source_data])
 
