@@ -78,7 +78,8 @@ def update_codelist_item(codelist_item, code_dict, namespaces=None):
             k = k[1:]
             if v:
                 codelist_item.set(k, v)
-        elif '_' in k:
+            continue
+        if '_' in k:
             el, lang = k.split('_')
             if lang == 'en':
                 narrative = codelist_item.xpath(
@@ -107,9 +108,9 @@ def update_codelist_item(codelist_item, code_dict, namespaces=None):
                     parent.append(narrative)
                 else:
                     continue
-            narrative.text = v
         else:
-            codelist_item.xpath(k, namespaces=namespaces)[0].text = v
+            narrative = codelist_item.xpath(k, namespaces=namespaces)[0]
+        narrative.text = v
     return codelist_item
 
 
