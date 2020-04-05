@@ -64,7 +64,7 @@ def create_codelist_item(keys, xml=None, namespaces=None):
             key = '{{{namespace}}}{key}'.format(
                 namespace=namespaces[ns], key=key)
         el = ET.Element(key)
-        if 'code' not in key:
+        if not key.endswith('code'):
             el.append(ET.Element('narrative'))
         xml.append(el)
     return xml
