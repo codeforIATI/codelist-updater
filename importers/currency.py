@@ -10,12 +10,12 @@ yyyy_mm = re.compile(r'^\d{4}-\d{2}$')
 yyyy_mm_dd = re.compile(r'^\d{4}-\d{2}-\d{2}$')
 url = 'https://raw.githubusercontent.com/datasets/currency-codes/' + \
       'master/data/codes-all.csv'
-lookup = {
-    'code': 'AlphabeticCode',
-    'name_en': 'Currency',
-    '@withdrawal-date': 'WithdrawalDate',
-    '@status': 'status',
-}
+lookup = [
+    ('code', 'AlphabeticCode'),
+    ('name_en', 'Currency'),
+    ('@withdrawal-date', 'WithdrawalDate'),
+    ('@status', 'status'),
+]
 r = requests.get(url)
 reader = csv.DictReader(r.iter_lines(decode_unicode=True))
 currencies = []

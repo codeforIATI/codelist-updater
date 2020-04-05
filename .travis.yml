@@ -15,7 +15,7 @@ script:
 - python importers/currency.py
 - python importers/file_format.py
 - python importers/finance_type.py
-- python importers/financy_type_category.py
+- python importers/finance_type_category.py
 - python importers/flow_type.py
 - python importers/language.py
 - python importers/organisation_registration_agency.py

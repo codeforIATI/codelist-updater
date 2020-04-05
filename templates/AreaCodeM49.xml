@@ -1,4 +1,4 @@
-<codelist name="AreaCodeM49" xml:lang="en" complete="1" embedded="0">
+<codelist name="AreaCodeM49" xml:lang="en" complete="1" embedded="0" xmlns:codeforiati="https://codeforiati.org/">
     <metadata>
         <name>
             <narrative>Region (UN M49)</narrative>

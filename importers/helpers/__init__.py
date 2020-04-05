@@ -46,52 +46,49 @@ def str_update(current, proposed):
     return None
 
 
-def create_codelist_item(keys):
-    xml = ET.Element('codelist-item')
-    xml.set('status', 'active')
-    if 'code' in keys:
-        xml.append(ET.Element('code'))
-    if 'name_en' in keys:
-        name = ET.Element('name')
-        name.append(ET.Element('narrative'))
-        xml.append(name)
-    if 'description_en' in keys:
-        description = ET.Element('description')
-        description.append(ET.Element('narrative'))
-        xml.append(description)
-    if 'category' in keys:
-        xml.append(ET.Element('category'))
+def create_codelist_item(keys, xml=None, namespaces=None):
+    if not namespaces:
+        namespaces = {}
+    if xml is None:
+        xml = ET.Element('codelist-item')
+        xml.set('status', 'active')
+    for key in keys:
+        if key.startswith('@'):
+            continue
+        if '_' in key:
+            key, lang = key.split('_')
+        if xml.xpath(key, namespaces=namespaces):
+            continue
+        if ':' in key:
+            ns, key = key.split(':')
+            key = '{{{namespace}}}{key}'.format(
+                namespace=namespaces[ns], key=key)
+        el = ET.Element(key)
+        if not key.endswith('code'):
+            el.append(ET.Element('narrative'))
+        xml.append(el)
     return xml
 
 
-def create_codelist_item_extra(xml, codelist_dict):
-    for key, value in codelist_dict.items():
-        if key.startswith('code'): continue
-        elif key.startswith('name'): continue
-        elif key.startswith('description'): continue
-        elif key.startswith('category'): continue
-        else:
-            if "_" in key:
-                name, lang = key.split("_")
-            else: name = key
-            if xml.xpath(name): continue
-            el = ET.Element(name)
-            if "code" not in name:
-                el.append(ET.Element('narrative'))
-            xml.append(el)
-    return xml
-
-
-def update_codelist_item(codelist_item, code_dict):
+def update_codelist_item(codelist_item, code_dict, namespaces=None):
+    if not namespaces:
+        namespaces = {}
     for k, v in code_dict.items():
+        if k.startswith('@'):
+            k = k[1:]
+            if v:
+                codelist_item.set(k, v)
+            continue
         if '_' in k:
             el, lang = k.split('_')
             if lang == 'en':
                 narrative = codelist_item.xpath(
-                    f'{el}/narrative[not(@xml:lang)]')[0]
+                    f'{el}/narrative[not(@xml:lang)]',
+                    namespaces=namespaces)[0]
             else:
                 narrative = codelist_item.xpath(
-                    f'{el}/narrative[@xml:lang="{lang}"]')
+                    f'{el}/narrative[@xml:lang="{lang}"]',
+                    namespaces=namespaces)
                 if narrative:
                     narrative = narrative[0]
                     if not v:
@@ -103,7 +100,7 @@ def update_codelist_item(codelist_item, code_dict):
                             # leave existing empty nodes
                             continue
                 elif v:
-                    parent = codelist_item.find(el)
+                    parent = codelist_item.xpath(el, namespaces=namespaces)[0]
                     narrative = ET.Element('narrative')
                     narrative.set(
                         '{http://www.w3.org/XML/1998/namespace}lang',
@@ -111,13 +108,9 @@ def update_codelist_item(codelist_item, code_dict):
                     parent.append(narrative)
                 else:
                     continue
-            narrative.text = v
-        elif k.startswith('@'):
-            k = k[1:]
-            if v:
-                codelist_item.set(k, v)
         else:
-            codelist_item.find(k).text = v
+            narrative = codelist_item.xpath(k, namespaces=namespaces)[0]
+        narrative.text = v
     return codelist_item
 
 
@@ -143,18 +136,21 @@ def source_to_xml(tmpl_name, source_url, lookup,
 
     tmpl_path = join('templates', '{}.xml'.format(tmpl_name))
     xml = ET.parse(tmpl_path, etparser)
+    namespaces = xml.getroot().nsmap
     codelist_items = xml.find('codelist-items')
 
     if source_data:
-        source_data = [{
-             outp: x[inp] for outp, inp in lookup.items()
-         } for x in source_data]
+        source_data = [OrderedDict([
+             (outp, x[inp]) for outp, inp in lookup
+         ]) for x in source_data]
     else:
+        code_lookup = [lookup_value for x, lookup_value in lookup
+                       if x == 'code'][0]
         r = requests.get(source_url)
         reader = csv.DictReader(r.iter_lines(decode_unicode=True))
-        source_data = [{
-            k: x.get(v) for k, v in lookup.items()
-        } for x in reader if x[lookup['code']]]
+        source_data = [OrderedDict([
+            (k, x.get(v)) for k, v in lookup
+        ]) for x in reader if x[code_lookup]]
 
     source_data_dict = OrderedDict([(source_data_row['code'].upper(), source_data_row) for source_data_row in source_data])
 
@@ -171,10 +167,8 @@ def source_to_xml(tmpl_name, source_url, lookup,
             new_code_dict = list(source_data_dict.values())[0]
             if new_code_dict['code'].upper() != old_codelist_code and not old_xml.xpath('//codelist-item/code[text()="{}"]/..'.format(new_code_dict['code'])):
                 # add a new code
-                new_codelist_item = create_codelist_item(new_code_dict.keys())
-                new_codelist_item = create_codelist_item_extra(new_codelist_item, new_code_dict)
-                new_codelist_item = update_codelist_item(new_codelist_item, new_code_dict)
-                # new_codelist_item.attrib['activation-date'] = today
+                new_codelist_item = create_codelist_item(new_code_dict.keys(), namespaces=namespaces)
+                new_codelist_item = update_codelist_item(new_codelist_item, new_code_dict, namespaces=namespaces)
                 codelist_items.append(new_codelist_item)
                 source_data_dict.popitem(last=False)
                 continue
@@ -182,8 +176,8 @@ def source_to_xml(tmpl_name, source_url, lookup,
         if old_codelist_code in source_data_dict:
             # it's in the current codes, so update it
             new_code_dict = source_data_dict[old_codelist_code]
-            old_codelist_el = create_codelist_item_extra(old_codelist_el, new_code_dict)
-            updated_codelist_item = update_codelist_item(old_codelist_el, new_code_dict)
+            updated_codelist_item = create_codelist_item(new_code_dict.keys(), old_codelist_el, namespaces=namespaces)
+            updated_codelist_item = update_codelist_item(updated_codelist_item, new_code_dict, namespaces=namespaces)
             codelist_items.append(updated_codelist_item)
             del source_data_dict[old_codelist_code]
         elif old_codelist_el.attrib.get('status') == 'withdrawn':
