@@ -1,7 +1,8 @@
-<codelist name="AreaCodeM49" xml:lang="en" complete="1" embedded="0" xmlns:codeforiati="https://codeforiati.org/">
+<codelist name="RegionM49" xml:lang="en" complete="1" embedded="0" xmlns:codeforiati="https://codeforiati.org/">
     <metadata>
         <name>
             <narrative>Region (UN M49)</narrative>
+            <narrative xml:lang="fr">Région (ONU M49)</narrative>
         </name>
         <description>
             <narrative>Standard country or area codes for statistical use</narrative>
