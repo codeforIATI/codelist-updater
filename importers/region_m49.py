@@ -43,4 +43,4 @@ lookup = [
     ('codeforiati:intermediate-region-name_ru', 'Intermediate Region Name_RU'),
     ('codeforiati:intermediate-region-name_zh', 'Intermediate Region Name_ZH'),
 ]
-source_to_xml('AreaCodeM49', url, lookup, repo='Unofficial-Codelists')
+source_to_xml('RegionM49', url, lookup, repo='Unofficial-Codelists')
