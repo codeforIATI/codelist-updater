@@ -1,3 +1,7 @@
+import csv
+
+import requests
+
 from helpers import source_to_xml
 
 
@@ -14,4 +18,17 @@ lookup = [
     ('codeforiati:glide-serial', 'Glide_Serial')
 ]
 
-source_to_xml('GLIDENumber', url, lookup, repo='Unofficial-Codelists')
+r = requests.get(url)
+reader = csv.DictReader(r.iter_lines(decode_unicode=True))
+codes = list(reader)
+codes.insert(0, {
+    'GLIDE_number': 'EP-2020-000012-001',
+    'Event_Code': 'EP',
+    'Event': 'Epidemic',
+    'Country_Code': '---',
+    'Country': '(Non-Localized)',
+    'Date': '2020-01-06',
+    'Glide_Serial': '2020-000012',
+})
+
+source_to_xml('GLIDENumber', 'codes', lookup, repo='Unofficial-Codelists', source_data=codes)
