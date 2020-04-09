@@ -22,7 +22,7 @@ script:
 - python importers/region.py
 - python importers/sector.py
 - python importers/sector_category.py
-- python importers/area_code_m49.py
+- python importers/region_m49.py
 - python importers/glide_number.py
 env:
   global:
