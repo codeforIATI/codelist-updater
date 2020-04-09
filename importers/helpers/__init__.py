@@ -53,6 +53,7 @@ def create_codelist_item(keys, xml=None, namespaces=None):
         xml = ET.Element('codelist-item')
         xml.set('status', 'active')
     for key in keys:
+        lang = None
         if key.startswith('@'):
             continue
         if '_' in key:
@@ -64,7 +65,7 @@ def create_codelist_item(keys, xml=None, namespaces=None):
             key = '{{{namespace}}}{key}'.format(
                 namespace=namespaces[ns], key=key)
         el = ET.Element(key)
-        if not key.endswith('code'):
+        if lang:
             el.append(ET.Element('narrative'))
         xml.append(el)
     return xml
