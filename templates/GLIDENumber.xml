@@ -1,0 +1,15 @@
+<codelist name="GLIDENumber" xml:lang="en" complete="1" embedded="0" xmlns:codeforiati="https://codeforiati.org/">
+    <metadata>
+        <name>
+            <narrative>GLIDE Number</narrative>
+        </name>
+        <description>
+            <narrative>A globally common unique ID code for disasters.</narrative>
+        </description>
+        <url>https://glidenumber.net/glide/public/search/search.jsp</url>
+        <category>
+            <narrative>Replicated</narrative>
+        </category>
+    </metadata>
+    <codelist-items/>
+</codelist>
