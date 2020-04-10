@@ -133,7 +133,18 @@ def reset_repo(tmpl_name, repo=None):
 def source_to_xml(tmpl_name, source_url, lookup,
                   repo=None, source_data=None, order_by=None):
     reset_repo(tmpl_name, repo)
-    old_xml = ET.parse(join('codelist_repo', 'xml', '{}.xml'.format(tmpl_name)), etparser)
+
+    try:
+        old_xml = ET.parse(
+            join('codelist_repo', 'xml', '{}.xml'.format(tmpl_name)),
+            etparser)
+        old_codelist_els = old_xml.xpath('//codelist-item')
+    except OSError:
+        old_codelist_els = []
+
+    old_codelist_codes = [
+        old_codelist_el.find('code').text.upper()
+        for old_codelist_el in old_codelist_els]
 
     tmpl_path = join('templates', '{}.xml'.format(tmpl_name))
     xml = ET.parse(tmpl_path, etparser)
@@ -154,11 +165,6 @@ def source_to_xml(tmpl_name, source_url, lookup,
         ]) for x in reader if x[code_lookup]]
 
     source_data_dict = OrderedDict([(source_data_row['code'].upper(), source_data_row) for source_data_row in source_data])
-
-    old_codelist_els = old_xml.xpath('//codelist-item')
-    old_codelist_codes = [
-        old_codelist_el.find('code').text.upper()
-        for old_codelist_el in old_codelist_els]
 
     while True:
         if not old_codelist_els and not source_data_dict:
