@@ -133,7 +133,18 @@ def reset_repo(tmpl_name, repo=None):
 def source_to_xml(tmpl_name, source_url, lookup,
                   repo=None, source_data=None, order_by=None):
     reset_repo(tmpl_name, repo)
-    old_xml = ET.parse(join('codelist_repo', 'xml', '{}.xml'.format(tmpl_name)), etparser)
+
+    try:
+        old_xml = ET.parse(
+            join('codelist_repo', 'xml', '{}.xml'.format(tmpl_name)),
+            etparser)
+        old_codelist_els = old_xml.xpath('//codelist-item')
+    except OSError:
+        old_codelist_els = []
+
+    old_codelist_codes = [
+        old_codelist_el.find('code').text.upper()
+        for old_codelist_el in old_codelist_els]
 
     tmpl_path = join('templates', '{}.xml'.format(tmpl_name))
     xml = ET.parse(tmpl_path, etparser)
@@ -155,24 +166,25 @@ def source_to_xml(tmpl_name, source_url, lookup,
 
     source_data_dict = OrderedDict([(source_data_row['code'].upper(), source_data_row) for source_data_row in source_data])
 
-    old_codelist_els = old_xml.xpath('//codelist-item')
     while True:
         if not old_codelist_els and not source_data_dict:
             break
-        if old_codelist_els:
-            old_codelist_el = old_codelist_els[0]
-            old_codelist_code = old_codelist_el.find('code').text.upper()
-        else:
-            old_codelist_code = None
+
         if source_data_dict:
             new_code_dict = list(source_data_dict.values())[0]
-            if new_code_dict['code'].upper() != old_codelist_code and not old_xml.xpath('//codelist-item/code[text()="{}"]/..'.format(new_code_dict['code'])):
+            if new_code_dict['code'].upper() not in old_codelist_codes:
                 # add a new code
                 new_codelist_item = create_codelist_item(new_code_dict.keys(), namespaces=namespaces)
                 new_codelist_item = update_codelist_item(new_codelist_item, new_code_dict, namespaces=namespaces)
                 codelist_items.append(new_codelist_item)
                 source_data_dict.popitem(last=False)
                 continue
+
+        if old_codelist_els:
+            old_codelist_el = old_codelist_els[0]
+            old_codelist_code = old_codelist_el.find('code').text.upper()
+        else:
+            old_codelist_code = None
 
         if old_codelist_code in source_data_dict:
             # it's in the current codes, so update it

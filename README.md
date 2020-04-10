@@ -25,7 +25,6 @@ For example, if you need to scrape a web page to keep a codelist up to date, you
 Currently, this is the process:
 
 1. Make a codelist template: this is a codelist with none of the `codelist-item` elements. The easiest way to do this is to copy and rename one of the files in the `templates` folder.
-2. Add a the (empty) codelist template to the relevant repository (via a pull request).
-3. Add the same template to the `templates` folder. It must have the same name as the codelist template in step (2).
-4. Create an importer: you can start by copying and renaming an importer from the `importers` folder.
-5. Update `.travis.yml` to include your importer.
+2. Add the (empty) codelist template to the `templates` folder.
+3. Create an importer: you can start by copying and renaming an importer from the `importers` folder.
+4. Update `.travis.yml` to include your importer.
