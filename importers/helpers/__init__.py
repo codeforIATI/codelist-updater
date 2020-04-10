@@ -1,7 +1,6 @@
 import shutil
 from collections import OrderedDict
 from os.path import join
-import re
 import subprocess
 
 import requests
@@ -36,14 +35,6 @@ def indent(elem, level=0, shift=2):
     else:
         if level and (not elem.tail or not elem.tail.strip()):
             elem.tail = i
-
-
-def str_update(current, proposed):
-    if current and proposed and re.split(r'[\s|\xa0]+', current) == re.split(r'[\s|\xa0]+', proposed):
-        return current
-    elif proposed:
-        return proposed.replace('\r', '').replace('.  ', '. ').strip()
-    return None
 
 
 def create_codelist_item(keys, xml=None, namespaces=None):
