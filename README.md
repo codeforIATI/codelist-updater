@@ -27,4 +27,3 @@ Currently, this is the process:
 1. Make a codelist template: this is a codelist with none of the `codelist-item` elements. The easiest way to do this is to copy and rename one of the files in the `templates` folder.
 2. Add the (empty) codelist template to the `templates` folder.
 3. Create an importer: you can start by copying and renaming an importer from the `importers` folder.
-4. Update `.travis.yml` to include your importer.
