@@ -2,7 +2,7 @@ import csv
 
 import requests
 
-from helpers import source_to_xml
+from helpers import Importer
 
 
 url = 'https://morph.io/codeforIATI/humanitarian-emergency-codelists/' + \
@@ -31,4 +31,4 @@ codes.insert(0, {
     'Glide_Serial': '2020-000012',
 })
 
-source_to_xml('GLIDENumber', 'codes', lookup, repo='Unofficial-Codelists', source_data=codes)
+Importer('GLIDENumber', 'codes', lookup, repo='Unofficial-Codelists', source_data=codes)

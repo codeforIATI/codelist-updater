@@ -2,7 +2,7 @@ import csv
 
 import requests
 
-from helpers import source_to_xml
+from helpers import Importer
 
 
 url = 'https://raw.githubusercontent.com/datasets/dac-crs-codes/' + \
@@ -26,4 +26,4 @@ for finance_type in reader:
         finance_type['name_fr'] = finance_type['description_fr']
         finance_type['description_fr'] = ''
     finance_types.append(finance_type)
-source_to_xml('FinanceType', None, lookup, source_data=finance_types)
+Importer('FinanceType', None, lookup, source_data=finance_types)

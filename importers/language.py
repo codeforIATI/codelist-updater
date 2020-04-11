@@ -1,4 +1,4 @@
-from helpers import source_to_xml
+from helpers import Importer
 
 
 url = 'https://raw.githubusercontent.com/datasets/language-codes/' + \
@@ -8,4 +8,4 @@ lookup = [
     ('name_en', 'English'),
     ('name_fr', 'French'),
 ]
-source_to_xml('Language', url, lookup, order_by='code/text()')
+Importer('Language', url, lookup, order_by='code/text()')

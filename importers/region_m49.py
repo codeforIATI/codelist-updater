@@ -1,4 +1,4 @@
-from helpers import source_to_xml
+from helpers import Importer
 
 
 url = 'https://morph.io/codeforIATI/country-region-codes-scraper/' + \
@@ -43,4 +43,4 @@ lookup = [
     ('codeforiati:intermediate-region-name_ru', 'Intermediate Region Name_RU'),
     ('codeforiati:intermediate-region-name_zh', 'Intermediate Region Name_ZH'),
 ]
-source_to_xml('RegionM49', url, lookup, repo='Unofficial-Codelists')
+Importer('RegionM49', url, lookup, repo='Unofficial-Codelists')

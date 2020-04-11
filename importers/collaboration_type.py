@@ -2,7 +2,7 @@ import csv
 
 import requests
 
-from helpers import source_to_xml
+from helpers import Importer
 
 
 url = 'https://raw.githubusercontent.com/datasets/dac-crs-codes/' + \
@@ -30,4 +30,4 @@ for collaboration_type in reader:
             collaboration_type['name_' + lang] = name_and_desc[0] + '.'
             collaboration_type['description_' + lang] = name_and_desc[1]
     collaboration_types.append(collaboration_type)
-source_to_xml('CollaborationType', None, lookup, source_data=collaboration_types)
+Importer('CollaborationType', None, lookup, source_data=collaboration_types)

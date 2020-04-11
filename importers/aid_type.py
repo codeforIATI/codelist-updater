@@ -1,4 +1,4 @@
-from helpers import source_to_xml
+from helpers import Importer
 
 
 url = 'https://raw.githubusercontent.com/datasets/dac-crs-codes/' + \
@@ -11,4 +11,4 @@ lookup = [
     ('description_fr', 'description_fr'),
     ('category', 'category'),
 ]
-source_to_xml('AidType', url, lookup)
+Importer('AidType', url, lookup)

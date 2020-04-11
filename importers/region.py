@@ -2,7 +2,7 @@ import csv
 
 import requests
 
-from helpers import source_to_xml
+from helpers import Importer
 
 
 url = 'https://raw.githubusercontent.com/datasets/dac-crs-codes/' + \
@@ -16,4 +16,4 @@ r = requests.get(url)
 reader = csv.DictReader(r.iter_lines(decode_unicode=True))
 regions = [x for x in reader
            if x['income_group'] == 'Part I unallocated by income']
-source_to_xml('Region', None, lookup, source_data=regions)
+Importer('Region', None, lookup, source_data=regions)
