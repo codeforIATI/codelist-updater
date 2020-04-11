@@ -14,6 +14,20 @@ There are two codelist repositories that we can update to:
 
 Codelists from both of these repositories are visible in the replicated codelists interface: [codelists.codeforiati.org](https://codelists.codeforiati.org)
 
+## Running the importers
+
+To run all importers, use:
+
+```
+python -m import_all [--deploy]
+```
+
+To run an individual importer, use e.g.:
+
+```
+python -m importers.currency [--deploy]
+```
+
 ## Adding a codelist
 
 It is now relatively straightforward to add a new codelist here (we're trying to gradually make it even easier).
