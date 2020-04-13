@@ -3,7 +3,7 @@ import re
 
 import requests
 
-from helpers import source_to_xml
+from helpers import Importer
 
 
 url = 'https://raw.githubusercontent.com/datasets/dac-crs-codes/' + \
@@ -26,4 +26,4 @@ for sector in reader:
         sector[txt] = re.sub(r'  +', ' ', sector[txt])
     sectors.append(sector)
 sectors = sorted(sectors, key=lambda x: x['code'])
-source_to_xml('Sector', None, lookup, source_data=sectors)
+Importer('Sector', None, lookup, source_data=sectors)

@@ -2,7 +2,7 @@ import csv
 
 import requests
 
-from helpers import source_to_xml
+from helpers import Importer
 
 
 url = 'https://morph.io/andylolz/country-codes/' + \
@@ -26,4 +26,4 @@ countries.append({
     'name_fr': '',
 })
 countries = sorted(countries, key=lambda x: x['name_en'])
-source_to_xml('Country', 'countries', lookup, source_data=countries)
+Importer('Country', 'countries', lookup, source_data=countries)

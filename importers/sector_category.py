@@ -2,7 +2,7 @@ import csv
 
 import requests
 
-from helpers import source_to_xml
+from helpers import Importer
 
 
 sector_url = 'https://raw.githubusercontent.com/datasets/dac-crs-codes/' + \
@@ -22,4 +22,4 @@ r = requests.get(url)
 reader = csv.DictReader(r.iter_lines(decode_unicode=True))
 categories = [cat for cat in reader
               if cat['code'] in sector_prefixes]
-source_to_xml('SectorCategory', None, lookup, source_data=categories)
+Importer('SectorCategory', None, lookup, source_data=categories)

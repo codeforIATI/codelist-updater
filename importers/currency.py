@@ -3,7 +3,7 @@ import re
 
 import requests
 
-from helpers import source_to_xml
+from helpers import Importer
 
 
 yyyy_mm = re.compile(r'^\d{4}-\d{2}$')
@@ -30,6 +30,6 @@ for currency in reader:
     if not yyyy_mm_dd.match(currency['WithdrawalDate']):
         currency['WithdrawalDate'] = ''
     currencies.append(currency)
-source_to_xml('Currency', None, lookup,
-              source_data=currencies,
-              order_by='code/text()')
+Importer('Currency', None, lookup,
+         source_data=currencies,
+         order_by='code/text()')
