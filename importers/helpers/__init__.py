@@ -26,7 +26,7 @@ class Importer:
         else:
             code_lookup = [lookup_value for x, lookup_value in lookup
                            if x == 'code'][0]
-            r = requests.get(source_url)
+            r = fetch(source_url)
             reader = csv.DictReader(r.iter_lines(decode_unicode=True))
             self.source_data = [OrderedDict([
                 (k, x.get(v)) for k, v in lookup
@@ -223,3 +223,10 @@ class Importer:
 
     def push_changes(self):
         subprocess.run('./update.sh ' + self.tmpl_name, shell=True)
+
+
+def fetch(url, *args, **kwargs):
+    r = requests.get(url, *args, **kwargs)
+    if r.status_code != 200:
+        raise ConnectionError
+    return r
