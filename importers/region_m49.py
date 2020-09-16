@@ -43,6 +43,10 @@ def run():
         ('codeforiati:intermediate-region-name_fr', 'Intermediate Region Name_FR'),
         ('codeforiati:intermediate-region-name_ru', 'Intermediate Region Name_RU'),
         ('codeforiati:intermediate-region-name_zh', 'Intermediate Region Name_ZH'),
+        ('codeforiati:least-developed-countries', 'Least Developed Countries (LDC)'),
+        ('codeforiati:land-locked-developing-countries', 'Land Locked Developing Countries (LLDC)'),
+        ('codeforiati:small-island-developing-states', 'Small Island Developing States (SIDS)'),
+        ('codeforiati:developed-developing', 'Developed / Developing Countries'),
     ]
     Importer('RegionM49', url, lookup, repo='Unofficial-Codelists')
 
