@@ -1,0 +1,13 @@
+<codelist xmlns:codeforiati="https://codeforiati.org/" name="ReportingOrganisation" xml:lang="en" complete="1" embedded="0">
+    <metadata>
+        <name>
+            <narrative>Reporting Organisation</narrative>
+            <narrative xml:lang="fr">Organisation déclarante</narrative>
+        </name>
+        <url>https://iatiregistry.org/publisher</url>
+        <category>
+            <narrative>Replicated</narrative>
+        </category>
+    </metadata>
+    <codelist-items/>
+</codelist>
