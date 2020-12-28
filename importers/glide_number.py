@@ -30,7 +30,7 @@ def run():
         'Glide_Serial': '2020-000012',
     })
 
-    Importer('GLIDENumber', 'codes', lookup, repo='Unofficial-Codelists', source_data=codes)
+    Importer('GLIDENumber', 'codes', lookup, source_data=codes)
 
 
 if __name__ == '__main__':

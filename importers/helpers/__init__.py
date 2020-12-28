@@ -2,7 +2,6 @@
 Converts codelist files from external sources into the format used by IATI.
 """
 import argparse
-import shutil
 from collections import OrderedDict
 from os.path import join
 import subprocess
@@ -14,10 +13,9 @@ import csv
 
 class Importer:
     def __init__(self, tmpl_name, source_url, lookup,
-                 repo=None, source_data=None, order_by=None):
+                 source_data=None, order_by=None):
         self.tmpl_name = tmpl_name
         self.order_by = order_by
-        self.repo = repo
 
         if source_data:
             self.source_data = [OrderedDict([
@@ -130,23 +128,7 @@ class Importer:
             narrative.text = v
         return codelist_item
 
-    def reset_repo(self, tmpl_name, repo=None):
-        if not repo:
-            repo = 'IATI-Codelists-NonEmbedded'
-        repo = 'https://codeforIATIbot:${GITHUB_TOKEN}@github.com/' + \
-               f'codeforIATI/{repo}.git'
-        shutil.rmtree('codelist_repo', ignore_errors=True)
-        complete = subprocess.run(f'git clone --branch {tmpl_name}-update'
-                                  f' {repo} codelist_repo', shell=True)
-        if complete.returncode == 0:
-            return
-        subprocess.run(f'git clone {repo} codelist_repo && ' +
-                       f'cd codelist_repo && ' +
-                       f'git checkout -b {tmpl_name}-update', shell=True)
-
     def source_to_xml(self):
-        self.reset_repo(self.tmpl_name, self.repo)
-
         etparser = ET.XMLParser(encoding='utf-8', remove_blank_text=True)
         try:
             old_xml = ET.parse(
