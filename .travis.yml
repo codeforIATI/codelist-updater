@@ -14,4 +14,4 @@ deploy:
   provider: script
   script: python -m import_all --deploy
   on:
-    branch: master
+    branch: main
