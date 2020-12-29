@@ -9,9 +9,7 @@ def run():
         ('codeforiati:organisation-type', 'Organization Type'),
         ('codeforiati:hq-country-or-region', 'HQ Country or Region'),
     ]
-    Importer(
-        'ReportingOrganisation', url, lookup,
-        repo='Unofficial-Codelists')
+    Importer('ReportingOrganisation', url, lookup)
 
 
 if __name__ == '__main__':
