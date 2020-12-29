@@ -1,8 +1,8 @@
 # Codelist Updater
 
-[![Build Status](https://travis-ci.com/codeforIATI/codelist-updater.svg?branch=master)](https://travis-ci.com/codeforIATI/codelist-updater)
+[![Build Status](https://github.com/codeforIATI/codelist-updater/workflows/CI/badge.svg?branch=main)](https://github.com/codeforIATI/codelist-updater/actions?query=workflow%3A%22Run+importers%22)
 
-A set of daily Travis CI cron jobs that check for updates to various codelists, and send pull requests when something changes.
+A daily GitHub Action that checks for updates to various codelists, and sends pull requests when something changes.
 
 ## Overview
 
@@ -16,16 +16,10 @@ Codelists from both of these repositories are visible in the replicated codelist
 
 ## Running the importers
 
-To run all importers, use:
-
-```
-python -m import_all [--deploy]
-```
-
 To run an individual importer, use e.g.:
 
 ```
-python -m importers.currency [--deploy]
+python -m importers.currency
 ```
 
 ## Adding a codelist

@@ -1,0 +1,86 @@
+name: Run importers
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '2 0 * * *'
+jobs:
+  scrape:
+    strategy:
+      matrix:
+        include:
+          - importer: aid_type
+            repo: IATI-Codelists-NonEmbedded
+          - importer: aid_type_category
+            repo: IATI-Codelists-NonEmbedded
+          - importer: collaboration_type
+            repo: IATI-Codelists-NonEmbedded
+          - importer: country
+            repo: IATI-Codelists-NonEmbedded
+          - importer: crs_channel_code
+            repo: IATI-Codelists-NonEmbedded
+          - importer: currency
+            repo: IATI-Codelists-NonEmbedded
+          - importer: file_format
+            repo: IATI-Codelists-NonEmbedded
+          - importer: finance_type
+            repo: IATI-Codelists-NonEmbedded
+          - importer: finance_type_category
+            repo: IATI-Codelists-NonEmbedded
+          - importer: flow_type
+            repo: IATI-Codelists-NonEmbedded
+          - importer: glide_number
+            repo: Unofficial-Codelists
+          - importer: language
+            repo: IATI-Codelists-NonEmbedded
+          - importer: organisation_registration_agency
+            repo: IATI-Codelists-NonEmbedded
+          - importer: region
+            repo: IATI-Codelists-NonEmbedded
+          - importer: region_m49
+            repo: Unofficial-Codelists
+          - importer: sector
+            repo: IATI-Codelists-NonEmbedded
+          - importer: sector_category
+            repo: IATI-Codelists-NonEmbedded
+    name: "Run importer: ${{ matrix.importer }}"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
+      name: Pull repo
+      with:
+        repository: codeforIATI/${{ matrix.repo }}
+        path: codelist_repo
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+    - uses: actions/cache@v2
+      name: Cache dependencies
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run importer
+      run: |
+        python -m importers.${{ matrix.importer }}
+    - name: Create Pull Request
+      if: github.ref == 'refs/heads/main'
+      uses: peter-evans/create-pull-request@v3
+      with:
+        path: codelist_repo
+        token: ${{ secrets.TOKEN }}
+        commit-message: ${{ matrix.importer }} update
+        committer: CodeforIATI bot <57559326+codeforIATIbot@users.noreply.github.com>
+        author: CodeforIATI bot <57559326+codeforIATIbot@users.noreply.github.com>
+        branch: ${{ matrix.importer }}-update
+        delete-branch: true
+        title: ${{ matrix.importer }} update
+        body: Codelist update, sent from [this GitHub Action build](https://github.com/codeforIATI/codelist-updater/actions/runs/${{ github.run_id }}).
+        reviewers: markbrough,andylolz
