@@ -44,7 +44,7 @@ def run():
         ('codeforiati:intermediate-region-name_ru', 'Intermediate Region Name_RU'),
         ('codeforiati:intermediate-region-name_zh', 'Intermediate Region Name_ZH'),
     ]
-    Importer('RegionM49', url, lookup, repo='Unofficial-Codelists')
+    Importer('RegionM49', url, lookup)
 
 
 if __name__ == '__main__':
