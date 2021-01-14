@@ -17,7 +17,7 @@ REGISTRY_ORGANISATION_TYPES = [
 ORG_TYPES = dict([(i[1], i[0]) for i in REGISTRY_ORGANISATION_TYPES])
 
 def run():
-    url = 'https://iatiregistry.org/publisher/download_list/csv'
+    url = 'https://iatiregistry.org/publisher/download/csv'
     lookup = [
         ('code', 'IATI Organisation Identifier'),
         ('name_en', 'Publisher'),
