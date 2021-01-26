@@ -1,0 +1,17 @@
+<codelist xmlns:codeforiati="https://codeforiati.org/" name="SectorGroup" xml:lang="en" complete="1" embedded="0">
+    <metadata>
+        <name>
+            <narrative>DAC Sector Groupings</narrative>
+            <narrative xml:lang="fr">Secteur du CAD (Groupements)</narrative>
+        </name>
+        <description>
+            <narrative>Hierarchical groupings of DAC CRS Purpose Codes.</narrative>
+            <narrative xml:lang="fr">Groupements des Secteurs du CAD avec niveaux hiérarchiques.</narrative>
+        </description>
+        <url>https://stats.oecd.org/viewhtml.aspx?datasetcode=CRS1</url>
+        <category>
+            <narrative>Replicated</narrative>
+        </category>
+    </metadata>
+    <codelist-items/>
+</codelist>
