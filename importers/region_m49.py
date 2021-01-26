@@ -2,9 +2,7 @@ from .helpers import Importer
 
 
 def run():
-    url = 'https://morph.io/codeforIATI/country-region-codes-scraper/' + \
-          'data.csv?key=wFTSIH61nwMjLBhphd4T' + \
-          '&query=select+%2A+from+%22swdata%22'
+    url = 'https://codeforiati.org/country-region-codes-scraper/country_region_codes.csv'
     lookup = [
         ('code', 'M49 Code'),
         ('name_en', 'Country or Area'),
