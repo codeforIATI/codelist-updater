@@ -45,6 +45,8 @@ jobs:
             repo: IATI-Codelists-NonEmbedded
           - importer: reporting_organisation
             repo: Unofficial-Codelists
+          - importer: sector_groups
+            repo: Unofficial-Codelists
     name: "Run importer: ${{ matrix.importer }}"
     runs-on: ubuntu-latest
     steps:
