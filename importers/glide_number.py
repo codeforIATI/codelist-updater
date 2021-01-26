@@ -4,9 +4,7 @@ from .helpers import Importer, fetch
 
 
 def run():
-    url = 'https://morph.io/codeforIATI/humanitarian-emergency-codelists/' + \
-          'data.csv?key=wFTSIH61nwMjLBhphd4T' + \
-          '&query=select+%2A+from+%22GLIDE_numbers%22'
+    url = 'https://codeforiati.org/humanitarian-emergency-codelists/glide-emergencies.csv'
     lookup = [
         ('code', 'GLIDE_number'),
         ('codeforiati:event-code', 'Event_Code'),
