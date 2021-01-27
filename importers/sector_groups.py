@@ -10,9 +10,9 @@ def run():
         ('codeforiati:category-code', 'category_code'),
         ('codeforiati:category-name_en', 'category_name_en'),
         ('codeforiati:category-name_fr', 'category_name_fr'),
-        ('codeforiati:sector-code', 'sector_code'),
-        ('codeforiati:sector-name_en', 'sector_name_en'),
-        ('codeforiati:sector-name_fr', 'sector_name_fr'),
+        ('codeforiati:group-code', 'group_code'),
+        ('codeforiati:group-name_en', 'group_name_en'),
+        ('codeforiati:group-name_fr', 'group_name_fr'),
     ]
     Importer('SectorGroup', url, lookup)
 
