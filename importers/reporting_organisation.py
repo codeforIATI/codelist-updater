@@ -26,7 +26,7 @@ def run():
         ('codeforiati:hq-country-or-region', 'HQ Country or Region'),
     ]
     r = fetch(url)
-    reader = csv.DictReader([y.decode() for y in r.iter_lines()])
+    reader = csv.DictReader((y.decode() for y in r.iter_lines()))
     publishers = []
     for publisher in reader:
         publisher['Organization Type Code'] = ORG_TYPES.get(publisher['Organization Type'])
