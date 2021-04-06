@@ -24,11 +24,13 @@ def run():
         ('codeforiati:organisation-type-code', 'Organization Type Code'),
         ('codeforiati:organisation-type', 'Organization Type'),
         ('codeforiati:hq-country-or-region', 'HQ Country or Region'),
+        ('codeforiati:registry-identifier', 'Registry Identifier'),
     ]
     data = fetch(url).json()
     publishers = []
     for publisher in data:
         publisher['Organization Type Code'] = ORG_TYPES.get(publisher['Organization Type'])
+        publisher['Registry Identifier'] = publisher['Datasets Link'].rsplit('/', 1)[-1]
         publishers.append(publisher)
     Importer('ReportingOrganisation', None, lookup, source_data=publishers)
 
