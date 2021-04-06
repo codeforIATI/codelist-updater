@@ -1,4 +1,3 @@
-import csv
 from .helpers import Importer, fetch
 
 # https://github.com/IATI/ckanext-iati/blob/d1a8776181c494eed0fd33c85f44878c88349613/ckanext/iati/lists.py#L27-L38
@@ -16,8 +15,9 @@ REGISTRY_ORGANISATION_TYPES = [
 ]
 ORG_TYPES = dict([(i[1], i[0]) for i in REGISTRY_ORGANISATION_TYPES])
 
+
 def run():
-    url = 'https://iatiregistry.org/publisher/download/csv'
+    url = 'https://iatiregistry.org/publisher/download/json'
     lookup = [
         ('code', 'IATI Organisation Identifier'),
         ('name_en', 'Publisher'),
@@ -25,10 +25,9 @@ def run():
         ('codeforiati:organisation-type', 'Organization Type'),
         ('codeforiati:hq-country-or-region', 'HQ Country or Region'),
     ]
-    r = fetch(url)
-    reader = csv.DictReader((y.decode() for y in r.iter_lines()))
+    data = fetch(url).json()
     publishers = []
-    for publisher in reader:
+    for publisher in data:
         publisher['Organization Type Code'] = ORG_TYPES.get(publisher['Organization Type'])
         publishers.append(publisher)
     Importer('ReportingOrganisation', None, lookup, source_data=publishers)
