@@ -209,6 +209,5 @@ class Importer:
 
 def fetch(url, *args, **kwargs):
     r = requests.get(url, *args, **kwargs)
-    if r.status_code != 200:
-        raise ConnectionError
+    r.raise_for_status()
     return r
