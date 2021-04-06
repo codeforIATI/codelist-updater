@@ -1,16 +1,16 @@
-from .helpers import Importer, fetch
+from .helpers import Importer
 
 
 def run():
-    url = 'https://unstats.un.org/SDGAPI/v1/sdg/Indicator/List'
+    url = 'https://docs.google.com/spreadsheets/d/1o1SQDqfFTBgUJO2k83mfFlLtgpwUUkEbc3gjRgIWJSo/export?format=csv&id=1o1SQDqfFTBgUJO2k83mfFlLtgpwUUkEbc3gjRgIWJSo&gid=1990382168'
     lookup = [
         ('code', 'code'),
-        ('name_en', 'description'),
-        ('category', 'target'),
+        ('name_en', 'name_en'),
+        ('name_fr', 'name_fr'),
+        ('category', 'category'),
+        ('@status', 'status'),
     ]
-
-    indicators = fetch(url).json()
-    Importer('UNSDG-Indicators', None, lookup, source_data=indicators)
+    Importer('UNSDG-Indicators', url, lookup)
 
 
 if __name__ == '__main__':
