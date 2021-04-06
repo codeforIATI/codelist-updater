@@ -47,6 +47,8 @@ jobs:
             repo: Unofficial-Codelists
           - importer: sector_groups
             repo: Unofficial-Codelists
+          - importer: unsdg_indicator
+            repo: Unofficial-Codelists
     name: "Run importer: ${{ matrix.importer }}"
     runs-on: ubuntu-latest
     steps:
