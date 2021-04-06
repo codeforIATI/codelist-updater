@@ -49,6 +49,10 @@ jobs:
             repo: Unofficial-Codelists
           - importer: unsdg_indicator
             repo: Unofficial-Codelists
+          - importer: earmarking_modality
+            repo: Unofficial-Codelists
+          - importer: humanitarian_global_clusters
+            repo: Unofficial-Codelists
     name: "Run importer: ${{ matrix.importer }}"
     runs-on: ubuntu-latest
     steps:

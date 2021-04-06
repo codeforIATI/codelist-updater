@@ -1,0 +1,12 @@
+<codelist category-codelist="EarmarkingCategory" name="EarmarkingModality" xml:lang="en" complete="1" embedded="0">
+    <metadata>
+        <name>
+            <narrative>Earmarking Modality</narrative>
+        </name>
+        <url>https://reliefweb.int/sites/reliefweb.int/files/resources/Grand_Bargain_final_22_May_FINAL-2.pdf</url>
+        <category>
+            <narrative>Replicated</narrative>
+        </category>
+    </metadata>
+    <codelist-items />
+</codelist>
