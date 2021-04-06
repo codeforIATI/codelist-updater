@@ -5,8 +5,8 @@ def run():
     url = 'https://unstats.un.org/SDGAPI/v1/sdg/Indicator/List'
     lookup = [
         ('code', 'code'),
-        ('category', 'target'),
         ('name_en', 'description'),
+        ('category', 'target'),
     ]
 
     indicators = fetch(url).json()
