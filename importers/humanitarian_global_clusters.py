@@ -2,13 +2,12 @@ from .helpers import Importer
 
 
 def run():
-    url = 'https://docs.google.com/spreadsheets/d/1o1SQDqfFTBgUJO2k83mfFlLtgpwUUkEbc3gjRgIWJSo/export?format=csv&id=1o1SQDqfFTBgUJO2k83mfFlLtgpwUUkEbc3gjRgIWJSo&gid=1574305742'
+    url = 'https://docs.google.com/spreadsheets/d/1SxSircxhXMZCe0PWafCht-whjBdI9UqoeFeSUbiLGc4/export?format=csv&id=1SxSircxhXMZCe0PWafCht-whjBdI9UqoeFeSUbiLGc4&gid=0'
     lookup = [
-        ('code', 'code'),
-        ('name_en', 'name_en'),
-        ('name_fr', 'name_fr'),
-        ('url', 'url'),
-        ('@status', 'status'),
+        ('code', 'HRinfo ID'),
+        ('name_en', 'Preferred Term'),
+        ('name_fr', 'Preferred Term (fr)'),
+        ('url', 'Homepage'),
     ]
     Importer('HumanitarianGlobalClusters', url, lookup)
 
