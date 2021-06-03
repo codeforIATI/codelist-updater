@@ -1,0 +1,13 @@
+<codelist name="HumanitarianPlan" xml:lang="en" complete="1" embedded="0" xmlns:codeforiati="https://codeforiati.org/">
+    <metadata>
+        <name>
+            <narrative>Humanitarian Plan</narrative>
+            <narrative xml:lang="fr">Plan Humanitaire</narrative>
+        </name>
+        <url>https://fts.unocha.org/plan-code-list-iati</url>
+        <category>
+            <narrative>Replicated</narrative>
+        </category>
+    </metadata>
+    <codelist-items />
+</codelist>
