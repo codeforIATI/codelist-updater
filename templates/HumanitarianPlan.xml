@@ -1,4 +1,4 @@
-<codelist name="HumanitarianPlan" xml:lang="en" complete="1" embedded="0">
+<codelist name="HumanitarianPlan" xml:lang="en" complete="1" embedded="0" xmlns:codeforiati="https://codeforiati.org/">
     <metadata>
         <name>
             <narrative>Humanitarian Plan</narrative>
