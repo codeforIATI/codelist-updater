@@ -12,7 +12,8 @@ def run():
         ('codeforiati:country-code', 'Country_Code'),
         ('codeforiati:country_en', 'Country'),
         ('codeforiati:date', 'Date'),
-        ('codeforiati:glide-serial', 'Glide_Serial')
+        ('codeforiati:glide-serial', 'Glide_Serial'),
+        ('url', 'URL'),
     ]
 
     r = fetch(url)
@@ -26,6 +27,7 @@ def run():
         'Country': '(Non-Localized)',
         'Date': '2020-01-06',
         'Glide_Serial': '2020-000012',
+        'URL': '',
     })
 
     Importer('GLIDENumber', 'codes', lookup, source_data=codes)
