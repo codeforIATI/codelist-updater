@@ -4,14 +4,14 @@ from .helpers import Importer, fetch
 
 
 def run():
-    sector_url = 'https://raw.githubusercontent.com/datasets/dac-crs-codes/' + \
-                 'master/data/sectors.csv'
+    sector_url = 'https://raw.githubusercontent.com/datasets/' + \
+                 'dac-and-crs-code-lists/main/data/sectors.csv'
     r = fetch(sector_url)
     reader = csv.DictReader(r.iter_lines(decode_unicode=True))
     sector_prefixes = list(set([s['code'][:3] for s in reader]))
 
-    url = 'https://raw.githubusercontent.com/datasets/dac-crs-codes/' + \
-          'master/data/sector_categories.csv'
+    url = 'https://raw.githubusercontent.com/datasets/' + \
+          'dac-and-crs-code-lists/main/data/sector_categories.csv'
     lookup = [
         ('code', 'code'),
         ('name_en', 'name_en'),
