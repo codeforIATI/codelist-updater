@@ -2,8 +2,8 @@ from .helpers import Importer
 
 
 def run():
-    url = 'https://raw.githubusercontent.com/datasets/dac-crs-codes/' + \
-          'master/data/flow_types.csv'
+    url = 'https://raw.githubusercontent.com/datasets/' + \
+          'dac-and-crs-code-lists/main/data/flow_types.csv'
     lookup = [
         ('code', 'code'),
         ('name_en', 'name_en'),

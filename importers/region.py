@@ -4,8 +4,8 @@ from .helpers import Importer, fetch
 
 
 def run():
-    url = 'https://raw.githubusercontent.com/datasets/dac-crs-codes/' + \
-          'master/data/recipients.csv'
+    url = 'https://raw.githubusercontent.com/datasets/' + \
+          'dac-and-crs-code-lists/main/data/recipients.csv'
     lookup = [
         ('code', 'code'),
         ('name_en', 'name_en'),

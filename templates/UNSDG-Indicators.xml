@@ -1,0 +1,16 @@
+<codelist category-codelist="UNSDG-Targets" name="UNSDG-Indicators" xml:lang="en" complete="1" embedded="0">
+    <metadata>
+        <name>
+            <narrative>UN Sustainable Development Goals (SDG) Indicators</narrative>
+            <narrative xml:lang="fr">Objectifs de développement durable (ODD) de l'ONU - indicateurs</narrative>
+        </name>
+        <description>
+            <narrative>A value from the third-level list of UN sustainable development goals (SDGs) (e.g. ‘1.1.1’)</narrative>
+        </description>
+        <url>https://unstats.un.org/sdgs/indicators/indicators-list/</url>
+        <category>
+            <narrative>Replicated</narrative>
+        </category>
+    </metadata>
+    <codelist-items />
+</codelist>

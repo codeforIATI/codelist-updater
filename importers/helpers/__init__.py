@@ -3,6 +3,7 @@ Converts codelist files from external sources into the format used by IATI.
 """
 import argparse
 from collections import OrderedDict
+from io import StringIO
 from os.path import join
 import subprocess
 
@@ -25,7 +26,7 @@ class Importer:
             code_lookup = [lookup_value for x, lookup_value in lookup
                            if x == 'code'][0]
             r = fetch(source_url)
-            reader = csv.DictReader(r.iter_lines(decode_unicode=True))
+            reader = csv.DictReader(StringIO(r.content.decode()))
             self.source_data = [OrderedDict([
                 (k, x.get(v)) for k, v in lookup
             ]) for x in reader if x[code_lookup]]
@@ -209,6 +210,5 @@ class Importer:
 
 def fetch(url, *args, **kwargs):
     r = requests.get(url, *args, **kwargs)
-    if r.status_code != 200:
-        raise ConnectionError
+    r.raise_for_status()
     return r

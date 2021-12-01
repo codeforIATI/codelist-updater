@@ -47,6 +47,14 @@ jobs:
             repo: Unofficial-Codelists
           - importer: sector_groups
             repo: Unofficial-Codelists
+          - importer: unsdg_indicator
+            repo: Unofficial-Codelists
+          - importer: earmarking_modality
+            repo: Unofficial-Codelists
+          - importer: humanitarian_global_clusters
+            repo: Unofficial-Codelists
+          - importer: humanitarian_plan
+            repo: Unofficial-Codelists
           - importer: sector_humanitarian_cluster
             repo: Unofficial-Codelists
     name: "Run importer: ${{ matrix.importer }}"

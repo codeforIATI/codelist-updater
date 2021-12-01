@@ -7,12 +7,13 @@ def run():
     url = 'https://codeforiati.org/humanitarian-emergency-codelists/glide-emergencies.csv'
     lookup = [
         ('code', 'GLIDE_number'),
+        ('url', 'URL'),
         ('codeforiati:event-code', 'Event_Code'),
         ('codeforiati:event_en', 'Event'),
         ('codeforiati:country-code', 'Country_Code'),
         ('codeforiati:country_en', 'Country'),
         ('codeforiati:date', 'Date'),
-        ('codeforiati:glide-serial', 'Glide_Serial')
+        ('codeforiati:glide-serial', 'Glide_Serial'),
     ]
 
     r = fetch(url)
@@ -20,6 +21,7 @@ def run():
     codes = list(reader)
     codes.insert(0, {
         'GLIDE_number': 'EP-2020-000012-001',
+        'URL': '',
         'Event_Code': 'EP',
         'Event': 'Epidemic',
         'Country_Code': '---',
