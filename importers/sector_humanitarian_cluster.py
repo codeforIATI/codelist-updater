@@ -4,7 +4,7 @@ from .helpers import Importer, fetch
 
 
 def run():
-    url = 'https://gist.githubusercontent.com/markbrough/57106a152dbb26a6f4544a77c6768a64/raw/1978f2094f4a80c575ed8017cd4915274f4641ed/dac5-clusters-mapping.csv'
+    url = 'https://gist.githubusercontent.com/markbrough/57106a152dbb26a6f4544a77c6768a64/raw/dac5-clusters-mapping.csv'
     lookup = [
         ('code', 'code'),
         ('name', 'name'),
