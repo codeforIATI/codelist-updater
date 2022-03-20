@@ -130,7 +130,7 @@ class Importer:
         return codelist_item
 
     def source_to_xml(self):
-        etparser = ET.XMLParser(encoding='utf-8', remove_blank_text=True)
+        etparser = ET.XMLParser(encoding='utf-8', remove_blank_text=True, strip_cdata=False)
         try:
             old_xml = ET.parse(
                 join('codelist_repo', 'xml', '{}.xml'.format(self.tmpl_name)),
