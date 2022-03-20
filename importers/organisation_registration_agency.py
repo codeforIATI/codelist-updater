@@ -23,7 +23,7 @@ def run():
             'coverage': ",".join(registration_agency['coverage']) if registration_agency['coverage'] is not None else '',
             'url': registration_agency['url']
         })
-    Importer('OrganisationRegistrationAgency', None, lookup, source_data=registration_agencies)
+    Importer('OrganisationRegistrationAgency', None, lookup, source_data=registration_agencies, sort_attrs=True)
 
 
 if __name__ == '__main__':

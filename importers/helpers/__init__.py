@@ -14,9 +14,10 @@ import csv
 
 class Importer:
     def __init__(self, tmpl_name, source_url, lookup,
-                 source_data=None, order_by=None):
+                 source_data=None, order_by=None, sort_attrs=False):
         self.tmpl_name = tmpl_name
         self.order_by = order_by
+        self.sort_attrs = sort_attrs
 
         if source_data:
             self.source_data = [OrderedDict([
@@ -194,6 +195,12 @@ class Importer:
             codelist_items[:] = sorted(
                 codelist_items,
                 key=lambda x: x.xpath(self.order_by))
+
+        if self.sort_attrs:
+            for ci in codelist_items:
+                sorted_attribs = sorted(ci.attrib.items())
+                [ci.attrib.pop(k) for k in ci.attrib.keys()]
+                [ci.set(k, v) for k, v in sorted_attribs]
 
         output_path = join('codelist_repo', 'xml', '{}.xml'.format(self.tmpl_name))
         for el in xml.iter('*'):
