@@ -2,6 +2,7 @@
     <metadata>
         <name>
             <narrative>Organisation Registration Agency</narrative>
+            <narrative xml:lang="fr">Agence d'enregistrement des organisations</narrative>
         </name>
         <description>
             <narrative><![CDATA[The values from this codelist are used to identify the particular list that an organisation identifier was drawn from. The codelist provides a register of known identifier lists, including national company registers, NGO directories and international and multilateral organisation lists - along with guidance and online resources to help locate the identifiers assigned to a specific organisation.

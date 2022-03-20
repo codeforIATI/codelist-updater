@@ -17,8 +17,8 @@ def run():
     for registration_agency in data['lists']:
         registration_agencies.append({
             'code': registration_agency['code'],
-            'name/en': registration_agency['name']['en'],
-            'description/en': registration_agency['description']['en'],
+            'name/en': registration_agency['name']['en'].strip(),
+            'description/en': registration_agency['description']['en'].strip(),
             'access/availableOnline': {False: '0', True: '1'}[bool(registration_agency['access'].get('availableOnline', False))],
             'coverage': ",".join(registration_agency['coverage']) if registration_agency['coverage'] is not None else '',
             'url': registration_agency['url']
