@@ -7,6 +7,7 @@ def run():
         ('name_en', 'name/en'),
         ('description_en', 'description/en'),
         ('@public-database', 'access/availableOnline'),
+        ('@status', '@status'),
         ('category', 'coverage'),
         ('url', 'url')
     ]
@@ -16,6 +17,7 @@ def run():
     registration_agencies = []
     for registration_agency in data['lists']:
         registration_agencies.append({
+            '@status': 'withdrawn' if registration_agency.get('deprecated') is True else 'active',
             'code': registration_agency['code'],
             'name/en': registration_agency['name']['en'],
             'description/en': registration_agency['description']['en'],
