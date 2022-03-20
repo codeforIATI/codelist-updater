@@ -22,7 +22,7 @@ def run():
             'name/en': registration_agency['name']['en'],
             'description/en': registration_agency['description']['en'],
             'access/availableOnline': {False: '0', True: '1'}[bool(registration_agency['access'].get('availableOnline', False))],
-            'coverage': ",".join(registration_agency['coverage']) if registration_agency['coverage'] is not None else '',
+            'coverage': ";".join(registration_agency['coverage']) if registration_agency['coverage'] is not None else '',
             'url': registration_agency['url']
         })
     Importer('OrganisationRegistrationAgency', None, lookup, source_data=registration_agencies, sort_attrs=True)
