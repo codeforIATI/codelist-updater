@@ -19,6 +19,7 @@ class Importer:
         self.tmpl_name = tmpl_name
         self.order_by = order_by
         self.sort_attrs = sort_attrs
+        self.remove_empty_narratives = remove_empty_narratives
 
         if source_data:
             self.source_data = [OrderedDict([
