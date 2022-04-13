@@ -14,7 +14,8 @@ import csv
 
 class Importer:
     def __init__(self, tmpl_name, source_url, lookup,
-                 source_data=None, order_by=None, sort_attrs=False):
+                 source_data=None, order_by=None, sort_attrs=False,
+                 remove_empty_narratives=True):
         self.tmpl_name = tmpl_name
         self.order_by = order_by
         self.sort_attrs = sort_attrs
@@ -208,6 +209,14 @@ class Importer:
                 if not el.text.strip():
                     # force tag self-escaping
                     el.text = None
+
+        if self.remove_empty_narratives:
+            for ci in codelist_items:
+                [ci.remove(el) for el in ci if (
+                    (el.find('narrative') is not None) and
+                    (len(el.xpath('narrative/text()'))==0)
+                )]
+
         self.indent(xml.getroot(), 0, 4)
         xml.write(output_path, encoding='utf-8', pretty_print=True)
 
