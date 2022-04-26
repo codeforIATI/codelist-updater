@@ -55,6 +55,8 @@ jobs:
             repo: Unofficial-Codelists
           - importer: humanitarian_plan
             repo: Unofficial-Codelists
+          - importer: sector_humanitarian_cluster
+            repo: Unofficial-Codelists
     name: "Run importer: ${{ matrix.importer }}"
     runs-on: ubuntu-latest
     steps:
