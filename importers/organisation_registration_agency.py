@@ -1,6 +1,22 @@
+from time import sleep
+
 from .helpers import Importer, fetch
 
+
 def run():
+    def refresh_data():
+        # Ensure we’re fetch the latest data, by hitting the
+        # _update_lists endpoint a few times.
+        #
+        # For more details, see:
+        # https://github.com/OpenDataServices/org-ids/issues/256
+        refresh_url = 'https://org-id.guide/_update_lists'
+        for x in range(6):
+            fetch(refresh_url)
+            sleep(0.5)
+
+    refresh_data()
+
     url = 'http://org-id.guide/download.json'
     lookup = [
         ('code', 'code'),
