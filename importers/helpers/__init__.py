@@ -92,6 +92,7 @@ class Importer:
     def update_codelist_item(self, codelist_item, code_dict, namespaces=None):
         if not namespaces:
             namespaces = {}
+        codelist_item.set('status', 'active')
         for k, v in code_dict.items():
             if k.startswith('@'):
                 k = k[1:]

@@ -19,7 +19,6 @@ ORG_TYPES = dict([(i[1], i[0]) for i in REGISTRY_ORGANISATION_TYPES])
 def run():
     url = 'https://iatiregistry.org/publisher/download/json'
     lookup = [
-        ('@status', '@status'),
         ('code', 'IATI Organisation Identifier'),
         ('name_en', 'Publisher'),
         ('codeforiati:organisation-type-code', 'Organization Type Code'),
@@ -30,7 +29,6 @@ def run():
     data = fetch(url).json()
     publishers = []
     for publisher in data:
-        publisher['@status'] = 'active'
         publisher['Organization Type Code'] = ORG_TYPES.get(publisher['Organization Type'])
         publisher['Registry Identifier'] = publisher['Datasets Link'].rsplit('/', 1)[-1]
         publishers.append(publisher)
