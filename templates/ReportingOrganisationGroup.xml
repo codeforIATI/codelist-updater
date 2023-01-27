@@ -2,7 +2,7 @@
     <metadata>
         <name>
             <narrative>Reporting Organisation Group</narrative>
-            <narrative xml:lang="fr">Reporting Organisation (Groupements)</narrative>
+            <narrative xml:lang="fr">Organisation déclarante (Groupements)</narrative>
         </name>
         <description>
             <narrative>Groupings of Reporting Organisations.</narrative>
