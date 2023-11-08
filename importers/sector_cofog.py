@@ -24,14 +24,14 @@ def run():
     lookup = [
         ('code', 'code'),
         ('name_en', 'name_en'),
+        ('description_en', 'description_en'),
         ('codeforiati:category-code', 'codeforiati:category-code'),
         ('codeforiati:category-name_en', 'codeforiati:category-name_en'),
         ('codeforiati:group-code', 'codeforiati:group-code'),
         ('codeforiati:group-name_en', 'codeforiati:group-name_en'),
         ('codeforiati:cofog-class', 'codeforiati:cofog-class'),
         ('codeforiati:cofog-group', 'codeforiati:cofog-group'),
-        ('codeforiati:cofog-division', 'codeforiati:cofog-division'),
-        ('description_en', 'description_en')
+        ('codeforiati:cofog-division', 'codeforiati:cofog-division')
     ]
     Importer('SectorCOFOG', None, lookup, source_data=sectors_cofog, order_by='code/text()', sort_attrs=True)
 
