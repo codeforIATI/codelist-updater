@@ -1,5 +1,7 @@
 from time import sleep
 
+from requests.exceptions import HTTPError
+
 from .helpers import Importer, fetch
 
 
@@ -10,10 +12,16 @@ def run():
         #
         # For more details, see:
         # https://github.com/OpenDataServices/org-ids/issues/256
-        refresh_url = 'https://org-id.guide/_update_lists'
-        for x in range(6):
-            fetch(refresh_url)
-            sleep(0.5)
+
+        try:
+            refresh_url = 'https://org-id.guide/_update_lists'
+            for x in range(6):
+                fetch(refresh_url)
+                sleep(0.5)
+        except HTTPError as exception:
+            if exception.response.status_code == 500:
+                print("Unable to ensure that org-id.guide is providing the latest data")
+                pass
 
     refresh_data()
 
