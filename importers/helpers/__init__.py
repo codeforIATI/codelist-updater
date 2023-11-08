@@ -135,7 +135,8 @@ class Importer:
             # the status is set manually. This is required in case
             # a codelist briefly disappears then reappears in the source
             # data.
-            codelist_item.set('status', 'active')
+            if codelist_item.get('status') == 'withdrawn':
+                codelist_item.set('status', 'active')
         return codelist_item
 
     def source_to_xml(self):
