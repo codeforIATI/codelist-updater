@@ -1,7 +1,7 @@
 <codelist xmlns:codeforiati="https://codeforiati.org/" name="SectorCOFOG" xml:lang="en" complete="1" embedded="0">
     <metadata>
         <name>
-            <narrative>DAC COFOG Mappings</narrative>
+            <narrative>DAC Sector / COFOG</narrative>
         </name>
         <description>
             <narrative>Mapping of DAC CRS Sector Codes against COFOG (Classification of the Functions of Government) codes.</narrative>
