@@ -58,6 +58,8 @@ jobs:
             repo: Unofficial-Codelists
           - importer: reporting_organisation_group
             repo: Unofficial-Codelists
+          - importer: sector_cofog
+            repo: Unofficial-Codelists
     name: "Run importer: ${{ matrix.importer }}"
     runs-on: ubuntu-latest
     steps:
