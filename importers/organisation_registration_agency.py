@@ -21,7 +21,7 @@ def run():
         except HTTPError as exception:
             if exception.response.status_code == 500:
                 print("Unable to ensure that org-id.guide is providing the latest data")
-                continue
+                pass
 
     refresh_data()
 
