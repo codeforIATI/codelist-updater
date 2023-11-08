@@ -130,6 +130,12 @@ class Importer:
             else:
                 narrative = codelist_item.xpath(k, namespaces=namespaces)[0]
             narrative.text = v
+        if '@status' not in code_dict.keys():
+            # This code exists, so it should be set to be active, unless
+            # the status is set manually. This is required in case
+            # a codelist briefly disappears then reappears in the source
+            # data.
+            codelist_item.set('status', 'active')
         return codelist_item
 
     def source_to_xml(self):
