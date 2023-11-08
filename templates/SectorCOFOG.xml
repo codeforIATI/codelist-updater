@@ -1,0 +1,15 @@
+<codelist xmlns:codeforiati="https://codeforiati.org/" name="SectorCOFOG" xml:lang="en" complete="1" embedded="0">
+    <metadata>
+        <name>
+            <narrative>DAC COFOG Mappings</narrative>
+        </name>
+        <description>
+            <narrative>Mapping of DAC CRS Sector Codes against COFOG (Classification of the Functions of Government) codes.</narrative>
+        </description>
+        <url>https://docs.google.com/spreadsheets/d/1MXlJiJa33_lj9wZWYG2oGc8V3srkfYEReTsGD8P-OzY/edit#gid=711009742</url>
+        <category>
+            <narrative>Replicated</narrative>
+        </category>
+    </metadata>
+    <codelist-items/>
+</codelist>
