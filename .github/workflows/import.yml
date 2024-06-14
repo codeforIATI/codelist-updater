@@ -10,40 +10,40 @@ jobs:
     strategy:
       matrix:
         include:
-          # - importer: aid_type
-          #   repo: IATI-Codelists-NonEmbedded
-          # - importer: aid_type_category
-          #   repo: IATI-Codelists-NonEmbedded
-          # - importer: collaboration_type
-          #   repo: IATI-Codelists-NonEmbedded
+          - importer: aid_type
+            repo: IATI-Codelists-NonEmbedded
+          - importer: aid_type_category
+            repo: IATI-Codelists-NonEmbedded
+          - importer: collaboration_type
+            repo: IATI-Codelists-NonEmbedded
           - importer: country
             repo: IATI-Codelists-NonEmbedded
-          # - importer: crs_channel_code
-          #   repo: IATI-Codelists-NonEmbedded
+          - importer: crs_channel_code
+            repo: IATI-Codelists-NonEmbedded
           - importer: currency
             repo: IATI-Codelists-NonEmbedded
           - importer: file_format
             repo: IATI-Codelists-NonEmbedded
-          # - importer: finance_type
-          #   repo: IATI-Codelists-NonEmbedded
-          # - importer: finance_type_category
-          #   repo: IATI-Codelists-NonEmbedded
-          # - importer: flow_type
-          #   repo: IATI-Codelists-NonEmbedded
+          - importer: finance_type
+            repo: IATI-Codelists-NonEmbedded
+          - importer: finance_type_category
+            repo: IATI-Codelists-NonEmbedded
+          - importer: flow_type
+            repo: IATI-Codelists-NonEmbedded
           - importer: glide_number
             repo: Unofficial-Codelists
           - importer: language
             repo: IATI-Codelists-NonEmbedded
           - importer: organisation_registration_agency
             repo: IATI-Codelists-NonEmbedded
-          # - importer: region
-          #   repo: IATI-Codelists-NonEmbedded
+          - importer: region
+            repo: IATI-Codelists-NonEmbedded
           - importer: region_m49
             repo: Unofficial-Codelists
-          # - importer: sector
-          #   repo: IATI-Codelists-NonEmbedded
-          # - importer: sector_category
-          #   repo: IATI-Codelists-NonEmbedded
+          - importer: sector
+            repo: IATI-Codelists-NonEmbedded
+          - importer: sector_category
+            repo: IATI-Codelists-NonEmbedded
           - importer: reporting_organisation
             repo: Unofficial-Codelists
           - importer: sector_groups
