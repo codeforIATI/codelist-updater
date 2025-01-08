@@ -1,6 +1,6 @@
 # Codelist Updater
 
-[![Build Status](https://github.com/codeforIATI/codelist-updater/workflows/Run%20importers/badge.svg?branch=main)](https://github.com/codeforIATI/codelist-updater/actions?query=workflow%3A%22Run+importers%22)
+[![Build Status](https://github.com/codeforIATI/codelist-updater/actions/workflows/import.yml/badge.svg)](https://github.com/codeforIATI/codelist-updater/actions/workflows/import.yml)
 
 A daily GitHub Action that checks for updates to various codelists, and sends pull requests when something changes.
 
