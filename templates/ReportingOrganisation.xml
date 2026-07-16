@@ -4,7 +4,7 @@
             <narrative>Reporting Organisation</narrative>
             <narrative xml:lang="fr">Organisation déclarante</narrative>
         </name>
-        <url>https://iatiregistry.org/publisher</url>
+        <url>https://dashboard.iatistandard.org/publishers/</url>
         <category>
             <narrative>Replicated</narrative>
         </category>
