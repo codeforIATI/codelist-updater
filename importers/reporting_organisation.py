@@ -1,4 +1,5 @@
 import csv
+from io import StringIO
 
 from .helpers import Importer, fetch
 
@@ -27,7 +28,7 @@ def run():
     ]
 
     r = fetch(url)
-    reader = csv.DictReader(r.iter_lines(decode_unicode=True))
+    reader = csv.DictReader(StringIO(r.content.decode()))
     publishers = []
     for row in reader:
         org_type_code, org_type_name = _split_code_name(row['Organisation Type'])
